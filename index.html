@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>VagaCursos</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			var data = {
+				name: $("#nome").val(),
+				senha: $("#senha").val()
+			};
+
+			$("#login").click(function(){
+				$.ajax({
+					url: "/login",
+			        type: "POST",
+			        data: JSON.stringify(data),
+			        dataType: "json",
+			        cache: false, 
+			        contentType: "application/json"
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>VagaCursos</h1>
+	<input type="text" placeholder="Nome" id="nome"><br><br>
+	<input type="password" placeholder="Senha" id="senha"><br><br>
+	<input type="button" value="Login" id="login"><br><br>
+	<input type="button" value="Cadastre-se" id="cadastre_se">
+</body>
+</html>
