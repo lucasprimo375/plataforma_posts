@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>VagaCursos</title>
+</head>
+<body>
+	<h1>Busca</h1>
+	<form action="buscar_curso" method="post">
+		<input type="text" placeholder="Buscar curso" name="palavra_chave">
+	</form>
+
+	<h1>Adicionar Curso</h1>
+	<form action="adicionar_curso" method="post">
+		<input type="submit" value="Adicionar curso">
+	</form>
+
+	<h1>Editar Perfil</h1>
+	<form action="editar_perfil" method="post">
+		<input type="submit" value="Editar Perfil">
+	</form>
+
+	<h1>Categorias</h1>
+	<form action="acessar_categoria" method="post">
+		<select name="categoria">
+			<option value="computacao">Computação</option>
+			<option value="culinaria">Culinária</option>
+			<option value="outros">Outros</option>
+		</select><br>
+		<input type="submit" value="Buscar">
+	</form>
+</body>
+</html>
