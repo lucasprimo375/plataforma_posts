@@ -1,6 +1,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 
+var user_controller = require("./controller/user_controller.js");
+
 var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,8 +24,9 @@ app.get("/cadastro", function(req, res){
 });
 
 app.post("/fazer_cadastro", function(req, res){
-	console.log(req.body);
-	// validar dados
+	user_controller.adicionar_usuario(req.body, function(err){
+		res.end(err ? "Ocorreu um erro" : "cadastro realizado com sucesso");
+	});
 });
 
 app.post("/buscar_curso", function(req, res){
