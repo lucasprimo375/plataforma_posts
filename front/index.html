@@ -6,17 +6,61 @@
 	<title>VagaCursos</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
 </head>
 <body>
-	<h1>VagaCursos</h1>
-	<form action="/login" method="post">
-		<input type="text" placeholder="Email" id="email" name="email"><br><br>
-		<input type="password" placeholder="Senha" id="senha" name="senha"><br><br>
-		<input type="submit" value="Login" id="login"><br><br>
-	</form>
+	<div id="div_inicial" class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<h1>VagaCursos</h1>
 
-	<form action="/cadastro">
-		<input type="submit" value="Cadastre-se" id="cadastre_se">
-	</form>
+				<img src="imagens/logo.jpg" width="100%">
+			</div>
+
+			<div class="col-md-6">
+				<br><br>
+				<input type="text" placeholder="Email" id="email" name="email"><br><br>
+				<input type="password" placeholder="Senha" id="senha" name="senha"><br><br>
+				<input type="button" value="Login" id="login"><br><br>
+
+				<input type="button" value="Cadastre-se" id="cadastre_se">
+			</div>
+		</div>
+	</div>
+
+	<div id="div_cadastro" class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<h1>VagaCursos  Cadastro</h1>
+
+				<img src="imagens/logo.jpg" width="100%">
+			</div>
+
+			<div class="col-md-6">
+				<br><br><br><br>
+				<input type="text" placeholder="Nome" id="nome" name="nome"><br><br>
+				<input type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome"><br><br>
+				<input type="text" placeholder="Email" id="email" name="email"><br><br>
+				<input type="password" placeholder="Senha" id="senha" name="senha"><br><br>
+				<input type="button" value="Cadastrar" id="cadastrar"><br><br>
+				<input type="button" value="Voltar" id="voltar_inicial">
+			</div>
+		</div>
+	</div>
 </body>
 </html>
+
+<script type="text/javascript">
+	document.getElementById("div_cadastro").style.display = "none";
+
+	document.getElementById("cadastre_se").onclick = function(){
+		document.getElementById("div_inicial").style.display = "none";
+		document.getElementById("div_cadastro").style.display = "";
+	}
+
+	document.getElementById("voltar_inicial").onclick = function(){
+		document.getElementById("div_inicial").style.display = "";
+		document.getElementById("div_cadastro").style.display = "none";	
+	}
+</script>
