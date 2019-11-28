@@ -7,7 +7,8 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 	<div id="div_inicial" class="container">
@@ -20,11 +21,20 @@
 
 			<div class="col-md-6">
 				<br><br>
-				<input type="text" placeholder="Email" id="email" name="email"><br><br>
-				<input type="password" placeholder="Senha" id="senha" name="senha"><br><br>
-				<input type="button" value="Login" id="login"><br><br>
+				<div class="row">
+					<input class="col-md-6" type="text" placeholder="Email" id="email" name="email">
+					<div class="w-100"></div>
+					<input class="col-md-6" type="password" placeholder="Senha" id="senha" name="senha">
+					<div class="w-100"></div>
+					<input class="col-md-6" type="button" value="Login" id="login">
+				</div>
 
-				<input type="button" value="Cadastre-se" id="cadastre_se">
+				<br>
+
+				<div class="row">
+					<input class="col-md-6" type="button" value="Cadastre-se" id="cadastre_se">
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -39,15 +49,29 @@
 
 			<div class="col-md-6">
 				<br><br><br><br>
-				<input type="text" placeholder="Nome" id="nome" name="nome"><br><br>
-				<input type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome"><br><br>
-				<input type="text" placeholder="Email" id="email" name="email"><br><br>
-				<input type="password" placeholder="Senha" id="senha" name="senha"><br><br>
-				<input type="button" value="Cadastrar" id="cadastrar"><br><br>
-				<input type="button" value="Voltar" id="voltar_inicial">
+
+				<div class="row">
+					<input class="col-md-6" type="text" placeholder="Nome" id="nome" name="nome">
+					<div class="w-100"></div>
+					<input class="col-md-6" type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome">
+					<div class="w-100"></div>
+					<input class="col-md-6" type="text" placeholder="Email" id="email" name="email">
+					<div class="w-100"></div>
+					<input class="col-md-6" type="password" placeholder="Senha" id="senha" name="senha">
+					<div class="w-100"></div>
+					<input class="col-md-6" type="button" value="Cadastrar" id="cadastrar">					
+				</div>
+
+				<br>
+
+				<div class="row">
+					<input class="col-md-6" type="button" value="Voltar" id="voltar_inicial">
+				</div>
 			</div>
 		</div>
 	</div>
+
+
 </body>
 </html>
 
