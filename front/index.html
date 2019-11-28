@@ -71,20 +71,36 @@
 		</div>
 	</div>
 
-
+	<div id="div_principal" width="100%">
+		<div class="row" width="100%">
+			<div class="row" width="100%">
+				<img class="col-md-1 pull-left" src="imagens/logo.jpg">
+				<img class="col-md-1 pull-right" src="imagens/default-avatar.jpg">
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 
 <script type="text/javascript">
 	document.getElementById("div_cadastro").style.display = "none";
+	document.getElementById("div_principal").style.display = "none";
 
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
+		document.getElementById("div_principal").style.display = "none";
 		document.getElementById("div_cadastro").style.display = "";
 	}
 
 	document.getElementById("voltar_inicial").onclick = function(){
 		document.getElementById("div_inicial").style.display = "";
-		document.getElementById("div_cadastro").style.display = "none";	
+		document.getElementById("div_cadastro").style.display = "none";
+		document.getElementById("div_principal").style.display = "none";
+	}
+
+	document.getElementById("login").onclick = function(){
+		document.getElementById("div_inicial").style.display = "none";
+		document.getElementById("div_cadastro").style.display = "none";
+		document.getElementById("div_principal").style.display = "";
 	}
 </script>
