@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var cors = require("cors");
 
 var user_controller = require("./controller/user_controller.js");
 
@@ -7,25 +8,31 @@ var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/front/index.html");
 });
 
 app.post("/login", function(req, res){
-	// validar login
-	console.log(req.body);
-	// mandar página inicial
-	res.sendFile(__dirname + "/front/pagina_inicial.html");
+	user_controller.login(req.body, function(err, msg){
+		if(err){
+			res.status(404);
+		} else {
+			res.status(200);
+		}
+		res.end(msg);
+	});
 });
 
-app.get("/cadastro", function(req, res){
-	res.sendFile(__dirname + "/front/cadastro.html");
-});
-
-app.post("/fazer_cadastro", function(req, res){
-	user_controller.adicionar_usuario(req.body, function(err){
-		res.end(err ? "Ocorreu um erro" : "cadastro realizado com sucesso");
+app.post("/cadastro", function(req, res){
+	user_controller.adicionar_usuario(req.body, function(err, msg){
+		if(err){
+			res.status(404);
+		} else {
+			res.status(200);
+		}
+		res.end(msg);
 	});
 });
 

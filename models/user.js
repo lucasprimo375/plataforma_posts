@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize("vaga_cursos", "admin", "admin", {
 	host: "localhost",
-	dialect: "postgres"/* one of "mysql" | "mariadb" | "postgres" | "mssql" */
+	dialect: "mysql"/* one of "mysql" | "mariadb" | "postgres" | "mssql" */
 });
 
 sequelize
