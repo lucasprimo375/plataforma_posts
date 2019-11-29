@@ -71,12 +71,49 @@
 		</div>
 	</div>
 
-	<div id="div_principal" width="100%">
-		<div class="row" width="100%">
-			<div class="row" width="100%">
-				<img class="col-md-1 pull-left" src="imagens/logo.jpg">
-				<img class="col-md-1 pull-right" src="imagens/default-avatar.jpg">
+	<div id="div_principal">
+		<div class="row">
+				<div class="col-md-1">
+					<img src="imagens/logo.jpg" height="50" width="100">
+				</div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1"></div>
+				<div class="col-md-1 row">
+					<span class="col-md-6" id="bem_vindo_mensagem">Olá, Lucas</span>
+					<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
+				</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-1">
+				<input type="button" name="categorias" value="Categorias">
 			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<input type="text" id="buscar_curso" placeholder="Curso">
+				<input type="button" id="buscar_curso" value="Buscar">
+			</div>
+			<div class="col-md-2">
+				<input type="button" id="adicionar_curso" value="Adicionar curso">
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-1"></div>
+			<div class="col-md-1"></div>
+		</div>
+
+		<div class="row" id="div_cursos">
+			
 		</div>
 	</div>
 </body>
@@ -98,7 +135,8 @@
 	};
 
 	document.getElementById("div_cadastro").style.display = "none";
-	document.getElementById("div_principal").style.display = "none";
+	document.getElementById("div_principal").style.display = "";
+	document.getElementById("div_inicial").style.display = "none"
 
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
