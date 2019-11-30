@@ -1,3 +1,11 @@
+.sucesso {
+  color: green;
+}
+
+.erro {
+  color: red;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -38,9 +46,20 @@
   margin-bottom: 10px;
 }
 
-.categoria_item:hover {
+#titulo_pagina{
+  color: black;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.categoria_item:hover,
+#imagem_perfil {
   color: gray;
   cursor: pointer;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 #lista_categorias {

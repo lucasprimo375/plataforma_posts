@@ -16,13 +16,13 @@ app.get("/", function(req, res) {
 });
 
 app.post("/login", function(req, res){
-	user_controller.login(req.body, function(err, msg){
+	user_controller.login(req.body, function(err, data){
 		if(err){
 			res.status(404);
 		} else {
 			res.status(200);
 		}
-		res.end(msg);
+		res.end(JSON.stringify(data));
 	});
 });
 
@@ -46,7 +46,13 @@ app.post("/adicionar_curso", function(req, res){
 });
 
 app.post("/editar_perfil", function(req, res){
-
+	user_controller.editar_usuario(req.body, function(err, dados){
+		if(err)
+			res.status(404);
+		else
+			res.status(200)
+		res.end(JSON.stringify(dados));
+	});
 });
 
 app.get("/buscar_categorias", function(req, res){

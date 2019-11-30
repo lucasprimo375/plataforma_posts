@@ -5,8 +5,6 @@
 
 	<title>VagaCursos</title>
 
-	<script src="js/jquery-3.4.1.min.js"></script>
-
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
@@ -76,8 +74,9 @@
 				<div class="col-md-1">
 					<img src="imagens/logo.jpg" height="50" width="100">
 				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<span id="titulo_pagina"></span>
+				</div>
 				<div class="col-md-1"></div>
 				<div class="col-md-1"></div>
 				<div class="col-md-1"></div>
@@ -94,7 +93,7 @@
 
 		<br>
 
-		<div class="row">
+		<div id="opcoes_div" class="row">
 			<div class="col-md-1">
 				<input type="button" name="categorias" value="Categorias" id="botao_categorias">
 
@@ -122,14 +121,40 @@
 			<div class="col-md-1"></div>
 		</div>
 
-		<div class="row" id="div_cursos">
-			
+		<div class="container" id="div_cursos">
+			<h1>Cursos</h1>
+		</div>
+	</div>
+
+	<div id="editar_perfil_div" class="row">
+		<div class="container">
+			<span class="bold">Nome</span><br>
+			<input class="col-md-2" type="text" id="editar_perfil_nome">
+			<div class="w-100"><br></div>
+			<span class="bold">Sobrenome</span><br>
+			<input class="col-md-2" type="text" id="editar_perfil_sobrenome">
+			<div class="w-100"><br></div>
+			<span class="bold">Email</span><br>
+			<input class="col-md-2" type="text" id="editar_perfil_email" readonly>
+			<div class="w-100"><br></div>
+			<span class="bold">Senha</span><br>
+			<input class="col-md-2" type="password" id="editar_perfil_senha">
+			<div class="w-100"><br></div>
+			<span class="bold">Descrição</span><br>
+			<textarea class="col-md-4" id="editar_perfil_descricao" heigth="100"></textarea>
+			<div class="w-100"><br></div>
+			<input class="col-md-2" type="button" id="salvar_perfil_botao" value="Salvar">
+			<span id="editar_perfil_status"></span><br>
+			<div class="w-100"><br></div>
+			<input class="col-md-2" type="button" id="salvar_perfil_voltar" value="Voltar">
 		</div>
 	</div>
 </body>
 </html>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/cookies.js"></script>
 
 <script type="text/javascript">
 	String.prototype.hashCode = function() {
@@ -144,9 +169,14 @@
 	  	return hash;
 	};
 
+	var usuario;
+
 	document.getElementById("div_cadastro").style.display = "none";
-	document.getElementById("div_principal").style.display = "";
-	document.getElementById("div_inicial").style.display = "none"
+	document.getElementById("editar_perfil_div").style.display = "none";
+	document.getElementById("email_login").value = "";
+	document.getElementById("senha_login").value = "";
+	document.getElementById("div_principal").style.display = "none";
+	document.getElementById("div_inicial").style.display = "";
 
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
@@ -171,13 +201,16 @@
 
 		axios
 			.post("http://localhost:3000/login/", data)
-			.then(response => {
+			.then(res => {
+				usuario = res.data;
+
+				document.getElementById("bem_vindo_mensagem").innerHTML = "Olá, " + usuario.nome;
 				document.getElementById("div_inicial").style.display = "none";
 				document.getElementById("div_cadastro").style.display = "none";
 				document.getElementById("div_principal").style.display = "";
 			})
 			.catch(error => {
-				alert(error.response.data);
+				alert(error.response ? error.response.data : error);
 			});
 	}
 
@@ -229,11 +262,59 @@
 			})
 			.catch(err => {
 				modal.style.display = "none";
-				alert(err.response.data);
+				alert(err);
 			})
 	}
 
 	document.getElementById("close_categorias_modal").onclick = function(){
 		document.getElementById("categorias_modal").style.display = "none";
+	}
+
+	document.getElementById("imagem_perfil").onclick = function(){
+		document.getElementById("titulo_pagina").innerHTML = "Editar Perfil";
+		document.getElementById("opcoes_div").style.display = "none";
+		document.getElementById("editar_perfil_div").style.display = ""
+		document.getElementById("div_cursos").style.display = "none";
+
+		document.getElementById("editar_perfil_nome").value = usuario.nome;
+		document.getElementById("editar_perfil_sobrenome").value = usuario.sobrenome;
+		document.getElementById("editar_perfil_email").value = usuario.email;
+		document.getElementById("editar_perfil_senha").value = "";
+
+		document.getElementById("editar_perfil_status").innerHTML = "";
+	}
+
+	document.getElementById("salvar_perfil_botao").onclick = function(){
+		let dados = {
+			email: usuario.email,
+			nome: document.getElementById("editar_perfil_nome").value,
+			sobrenome: document.getElementById("editar_perfil_sobrenome").value,
+			mudou_senha: document.getElementById("editar_perfil_senha").value != "",
+			senha: document.getElementById("editar_perfil_senha").value.hashCode().toString()
+		};
+
+		axios
+			.post("http://localhost:3000/editar_perfil/", dados)
+			.then(res => {
+				usuario.nome = dados.nome;
+				usuario.sobrenome = dados.sobrenome;
+
+				document.getElementById("editar_perfil_nome").value = usuario.nome;
+				document.getElementById("editar_perfil_sobrenome").value = usuario.sobrenome;
+				document.getElementById("editar_perfil_senha").value = "";
+
+				document.getElementById("editar_perfil_status").innerHTML = "Sucesso!";
+				document.getElementById("editar_perfil_status").style.color = "green";
+			})
+			.catch(error => {
+				document.getElementById("editar_perfil_status").innerHTML = "Erro!";
+				document.getElementById("editar_perfil_status").style.color = "red";
+			});
+	}
+
+	document.getElementById("salvar_perfil_voltar").onclick = function(){
+		document.getElementById("opcoes_div").style.display = "";
+		document.getElementById("editar_perfil_div").style.display = "none"
+		document.getElementById("titulo_pagina").innerHTML = "";	
 	}
 </script>

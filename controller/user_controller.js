@@ -22,14 +22,39 @@ module.exports.login = function(login, callback){
 		where: {
 			email: login.email,
 			senha: login.senha
-		}
+		},
+		attributes: ["nome", "sobrenome", "email"]
 	}).then(res => {
 		if(res.length == 0){
 			callback(true, "Email ou senha não encontrados");	
 		} else {
-			callback(false, "");
+			callback(false, res[0]);
 		}
 	}).catch(error => {
-		callback(true, error.parent.sqlMessage);
+		callback(true, error);
+	});
+}
+
+module.exports.editar_usuario = function(dados, callback){
+	let edicao = {
+		nome: dados.nome,
+		sobrenome: dados.sobrenome
+	}
+
+	if(dados.mudou_senha)
+		edicao.senha = dados.senha;
+
+	Usuario.update(
+		edicao,
+		{
+			where: {
+				email: dados.email
+			}
+		}
+	).then(res => {
+		callback(false, "");
+	})
+	.catch(err => {
+		callback(true, err);
 	});
 }
