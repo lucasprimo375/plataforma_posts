@@ -1,6 +1,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var cors = require("cors");
+var formidable = require("formidable");
+var fs = require("fs");
 
 var user_controller = require("./controller/user_controller.js");
 var categorias_controller = require("./controller/categorias_controller.js");
@@ -22,6 +24,7 @@ app.post("/login", function(req, res){
 		} else {
 			res.status(200);
 		}
+		data.dataValues.image_path = __dirname + "/imagens_perfil/" + data.email;
 		res.end(JSON.stringify(data));
 	});
 });
@@ -46,12 +49,26 @@ app.post("/adicionar_curso", function(req, res){
 });
 
 app.post("/editar_perfil", function(req, res){
-	user_controller.editar_usuario(req.body, function(err, dados){
-		if(err)
-			res.status(404);
-		else
-			res.status(200)
-		res.end(JSON.stringify(dados));
+	let form = new formidable.IncomingForm();
+
+	form.parse(req, function (error, fields, files){
+		let data = {
+			nome: fields.nome,
+			sobrenome: fields.nome,
+			email: fields.email,
+			mudou_senha: false
+		}
+
+		fs.unlinkSync(__dirname + "/imagens_perfil/" + data.email);
+
+		fs.rename(files.image.path, __dirname + "/imagens_perfil/" + data.email, function(err){})
+
+		user_controller.editar_usuario(data, function(err, dados){
+			if(err) res.status(404);
+			else res.status(200)
+			
+			res.end(JSON.stringify(dados));
+		});
 	});
 });
 

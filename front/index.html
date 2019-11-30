@@ -86,7 +86,7 @@
 				<div class="col-md-1"></div>
 				<div class="col-md-1"></div>
 				<div class="col-md-1 row">
-					<span class="col-md-6" id="bem_vindo_mensagem">Olá, Lucas</span>
+					<span class="col-md-6" id="bem_vindo_mensagem"></span>
 					<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
 				</div>
 		</div>
@@ -128,6 +128,9 @@
 
 	<div id="editar_perfil_div" class="row">
 		<div class="container">
+			<span class="bold">Foto</span><br>
+			<input class="col-md-6" type="file" id="file">
+			<div class="w-100"><br></div>
 			<span class="bold">Nome</span><br>
 			<input class="col-md-2" type="text" id="editar_perfil_nome">
 			<div class="w-100"><br></div>
@@ -202,6 +205,8 @@
 		axios
 			.post("http://localhost:3000/login/", data)
 			.then(res => {
+				console.log(res.data);
+				document.getElementById("imagem_perfil").src = res.data.image_path;
 				usuario = res.data;
 
 				document.getElementById("bem_vindo_mensagem").innerHTML = "Olá, " + usuario.nome;
@@ -225,7 +230,13 @@
 		axios
 			.post("http://localhost:3000/cadastro/", data)
 	    	.then(response => {
-	    		console.log(response);
+	    		usuario = {
+	    			nome: data.nome,
+	    			sobrenome: data.sobrenome,
+	    			email: data.email
+	    		}
+
+	    		document.getElementById("bem_vindo_mensagem").innerHTML = "Olá, " + usuario.nome;
 
 	    		document.getElementById("div_inicial").style.display = "none";
 				document.getElementById("div_cadastro").style.display = "none";
@@ -280,24 +291,32 @@
 		document.getElementById("editar_perfil_sobrenome").value = usuario.sobrenome;
 		document.getElementById("editar_perfil_email").value = usuario.email;
 		document.getElementById("editar_perfil_senha").value = "";
+		document.getElementById("file").value = "";
 
 		document.getElementById("editar_perfil_status").innerHTML = "";
 	}
 
 	document.getElementById("salvar_perfil_botao").onclick = function(){
-		let dados = {
-			email: usuario.email,
-			nome: document.getElementById("editar_perfil_nome").value,
-			sobrenome: document.getElementById("editar_perfil_sobrenome").value,
-			mudou_senha: document.getElementById("editar_perfil_senha").value != "",
-			senha: document.getElementById("editar_perfil_senha").value.hashCode().toString()
-		};
+		let file = document.getElementById("file");
+		let img = file.files[0];
+		let fd = new FormData();
+
+		fd.append("image", img);
+		fd.append("email", usuario.email);
+		fd.append("nome", document.getElementById("editar_perfil_nome").value);
+		fd.append("sobrenome", document.getElementById("editar_perfil_sobrenome").value);
+		fd.append("mudou_senha", document.getElementById("editar_perfil_senha").value != "");
+		fd.append("senha", document.getElementById("editar_perfil_senha").value.hashCode().toString());
+
+		let config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        };
 
 		axios
-			.post("http://localhost:3000/editar_perfil/", dados)
+			.post("http://localhost:3000/editar_perfil/", fd, config)
 			.then(res => {
-				usuario.nome = dados.nome;
-				usuario.sobrenome = dados.sobrenome;
+				usuario.nome = document.getElementById("editar_perfil_nome").value;
+				usuario.sobrenome = document.getElementById("editar_perfil_sobrenome").value;
 
 				document.getElementById("editar_perfil_nome").value = usuario.nome;
 				document.getElementById("editar_perfil_sobrenome").value = usuario.sobrenome;
@@ -305,6 +324,8 @@
 
 				document.getElementById("editar_perfil_status").innerHTML = "Sucesso!";
 				document.getElementById("editar_perfil_status").style.color = "green";
+
+				document.getElementById("imagem_perfil").src = URL.createObjectURL(img);
 			})
 			.catch(error => {
 				document.getElementById("editar_perfil_status").innerHTML = "Erro!";
