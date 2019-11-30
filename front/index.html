@@ -96,7 +96,17 @@
 
 		<div class="row">
 			<div class="col-md-1">
-				<input type="button" name="categorias" value="Categorias">
+				<input type="button" name="categorias" value="Categorias" id="botao_categorias">
+
+				<div id="categorias_modal" class="modal">
+					<div class="conteudo_modal">
+						<span id="close_categorias_modal">&times;</span>
+						<h1>Categorias</h1>
+						<ul id="lista_categorias">
+						</ul>
+					</div>
+				</div>
+
 			</div>
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
@@ -196,5 +206,34 @@
 	    	.catch(err => {
 	    		alert(err.response.data);
 	    	});
+	}
+
+	document.getElementById("botao_categorias").onclick = function(){
+		let modal = document.getElementById("categorias_modal");
+		modal.style.display = "block";
+
+		axios
+			.get("http://localhost:3000/buscar_categorias/")
+			.then(res => {
+				let cats = res.data;
+				let lista_categorias = document.getElementById("lista_categorias");
+
+				for(let i = 0; i < cats.length; i++){
+					let cat = cats[i];
+					let item = document.createElement("li");
+					item.innerHTML = cat.nome;
+					item.id = "categoria_" + cat.nome;
+					item.classList.add("categoria_item");
+					lista_categorias.appendChild(item);
+				}
+			})
+			.catch(err => {
+				modal.style.display = "none";
+				alert(err.response.data);
+			})
+	}
+
+	document.getElementById("close_categorias_modal").onclick = function(){
+		document.getElementById("categorias_modal").style.display = "none";
 	}
 </script>

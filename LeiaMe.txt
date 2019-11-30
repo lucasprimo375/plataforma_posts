@@ -10,3 +10,9 @@ CREATE TABLE usuario (
 	senha VARCHAR(255) NOT NULL, 
 	PRIMARY KEY (email)
 );
+
+Criando a tabela de categorias:
+CREATE TABLE categorias (
+	nome VARCHAR(255),
+	PRIMARY KEY (nome)
+);

@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 
 var user_controller = require("./controller/user_controller.js");
+var categorias_controller = require("./controller/categorias_controller.js");
 
 var app = express();
 
@@ -48,8 +49,15 @@ app.post("/editar_perfil", function(req, res){
 
 });
 
-app.post("/acessar_categoria", function(req, res){
-	console.log(req.body);
+app.get("/buscar_categorias", function(req, res){
+	categorias_controller.buscar_categorias(function(err, cats){
+		if(err){
+			res.status(404);
+		} else {
+			res.status(200);
+		}
+		res.end(JSON.stringify(cats));
+	});
 });
 
 app.listen(3000, function(){
