@@ -95,9 +95,11 @@ app.post("/editar_perfil", function(req, res){
 			mudou_senha: false
 		}
 
-		fs.unlinkSync(__dirname + "/imagens_perfil/" + data.email);
+		if(fs.existsSync(__dirname + "/imagens_perfil/" + data.email))
+			fs.unlinkSync(__dirname + "/imagens_perfil/" + data.email);
 
-		fs.rename(files.image.path, __dirname + "/imagens_perfil/" + data.email, function(err){})
+		if(files.image != undefined)
+			fs.rename(files.image.path, __dirname + "/imagens_perfil/" + data.email, function(err){})
 
 		user_controller.editar_usuario(data, function(err, dados){
 			if(err) res.status(404);

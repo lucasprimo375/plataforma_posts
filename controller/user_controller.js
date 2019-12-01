@@ -68,11 +68,7 @@ module.exports.buscar_por_email = function(email_, callback){
 			attributes: ["nome", "sobrenome"]
 		})
 		.then(res => {
-			if(res.length == 0){
-				callback(true, "Não há usuário com esse email");
-			} else {
-				callback(false, res[0]);
-			}
+			callback(false, res[0]);
 		})
 		.catch(err => {
 			callback(true, err);
