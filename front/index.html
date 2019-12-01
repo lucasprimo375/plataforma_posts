@@ -120,8 +120,11 @@
 			<div class="col-md-1"></div>
 		</div>
 
+		<br>
+
 		<div class="container" id="div_cursos">
-			<h1>Cursos</h1>
+			<h1 id="cursos_titulo"></h1>
+			<ul id="cursos_container"></ul>
 		</div>
 	</div>
 
@@ -154,6 +157,7 @@
 			<input class="cadastro_curso_input" type="text" id="cadastro_curso_titulo"><br><br><br>
 			
 			<h1>Foto de Capa</h1>
+			<h6>Resolução recomendada 600x300</h6>
 			<input type="file" id="cadastro_curso_foto_capa"><br><br><br>
 
 			<h1>Corpo</h1>
@@ -187,6 +191,7 @@
 		<p id="curso_corpo"></p>
 		<h4 id="anexos_header">Anexos</h4>
 		<ul id="curso_anexos"></ul>
+		<input type="button" id="exibir_curso_voltar" value="Voltar"><br><br><br>
 	</div>
 </body>
 </html>
@@ -237,6 +242,44 @@
 
 		if(dados.anexos.length == 0)
 			document.getElementById("anexos_header").style.display = "none";
+	}
+
+	function povoar_cursos_div(cursos){
+		let cursos_container = document.getElementById("cursos_container");
+
+		for(var i = 0; i < cursos.length; i++){							
+			let img = document.createElement("img");
+			img.classList.add("curso_imagem");
+			img.src = cursos[i].capa;
+			img.width = 100;
+			img.height = 100;
+			img.id = cursos[i].titulo;
+
+			let titulo = document.createElement("h6");
+			titulo.innerHTML = cursos[i].titulo;
+
+			let item = document.createElement("li");
+			item.style.marginRight = "30px";
+			item.style.marginBottom = "30px";
+			item.style.display = "inline-block";
+			
+			item.appendChild(titulo);
+			item.appendChild(img);
+
+			cursos_container.appendChild(item);
+
+			img.onclick = function(){
+				axios
+					.get("http://localhost:3000/buscar_curso/" + this.id)
+					.then(res => {
+						document.getElementById("div_cursos").style.display = "none";
+						exibir_curso(res.data);
+					})
+					.catch(err => {
+						console.log(err);
+					});
+			}
+		}
 	}
 
 	/*exibir_curso({
@@ -298,6 +341,16 @@
 				document.getElementById("div_inicial").style.display = "none";
 				document.getElementById("div_cadastro").style.display = "none";
 				document.getElementById("div_principal").style.display = "";
+				document.getElementById("cursos_titulo").innerHTML = "Cursos em Destaque";
+
+				axios
+					.get("http://localhost:3000/cursos_em_destaque/", {categoria: undefined})
+					.then(response => {
+						povoar_cursos_div(response.data);
+					})
+					.catch(err => {
+						console.log(err);
+					});
 			})
 			.catch(error => {
 				alert(error.response ? error.response.data : error);
@@ -502,5 +555,10 @@
         		console.log(err);
         		document.getElementById("publicar_curso_erro").innerHTML = "Erro!";
         	});
+	}
+
+	document.getElementById("exibir_curso_voltar").onclick = function(){
+		document.getElementById("exibir_curso_div").style.display = "none";
+		document.getElementById("div_cursos").style.display = "";
 	}
 </script>

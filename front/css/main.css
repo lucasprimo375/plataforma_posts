@@ -1,5 +1,6 @@
 #publicar_curso_botao,
-#publicar_curso_voltar {
+#publicar_curso_voltar,
+#exibir_curso_voltar {
   font-size: 2em;
 }
 
@@ -55,6 +56,10 @@
   cursor: pointer;
 }
 
+.curso_imagem:hover {
+  cursor: pointer; 
+}
+
 .categoria_item {
   color: black;
   margin-bottom: 10px;
@@ -76,6 +81,7 @@
   font-weight: bold;
 }
 
-#lista_categorias {
+#lista_categorias,
+#cursos_container {
   list-style: none;
 }
