@@ -94,7 +94,7 @@ app.post("/editar_perfil", function(req, res){
 	form.parse(req, function (error, fields, files){
 		let data = {
 			nome: fields.nome,
-			sobrenome: fields.nome,
+			sobrenome: fields.sobrenome,
 			email: fields.email,
 			mudou_senha: false
 		}

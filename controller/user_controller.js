@@ -45,7 +45,10 @@ module.exports.editar_usuario = function(dados, callback){
 		edicao.senha = dados.senha;
 
 	Usuario.update(
-		edicao,
+		{
+			nome: dados.nome,
+			sobrenome: dados.sobrenome
+		},
 		{
 			where: {
 				email: dados.email
