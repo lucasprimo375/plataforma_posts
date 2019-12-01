@@ -100,9 +100,6 @@ app.post("/editar_perfil", function(req, res){
 			senha: fields.senha
 		}
 
-		if(fs.existsSync(__dirname + "/imagens_perfil/" + data.email))
-			fs.unlinkSync(__dirname + "/imagens_perfil/" + data.email);
-
 		if(files.image != undefined)
 			fs.rename(files.image.path, __dirname + "/imagens_perfil/" + data.email, function(err){})
 
