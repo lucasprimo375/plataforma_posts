@@ -244,7 +244,14 @@
 			document.getElementById("anexos_header").style.display = "none";
 	}
 
+	function limpar_cursos_div(){
+		let cursos_container = document.getElementById("cursos_container");
+		cursos_container.innerHTML = "";
+	}
+
 	function povoar_cursos_div(cursos){
+		limpar_cursos_div();
+
 		let cursos_container = document.getElementById("cursos_container");
 
 		for(var i = 0; i < cursos.length; i++){							
@@ -280,6 +287,17 @@
 					});
 			}
 		}
+	}
+
+	function buscar_cursos_em_destaque(){
+		axios
+			.get("http://localhost:3000/cursos_em_destaque/", {categoria: undefined})
+			.then(response => {
+				povoar_cursos_div(response.data);
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	}
 
 	/*exibir_curso({
@@ -343,14 +361,7 @@
 				document.getElementById("div_principal").style.display = "";
 				document.getElementById("cursos_titulo").innerHTML = "Cursos em Destaque";
 
-				axios
-					.get("http://localhost:3000/cursos_em_destaque/", {categoria: undefined})
-					.then(response => {
-						povoar_cursos_div(response.data);
-					})
-					.catch(err => {
-						console.log(err);
-					});
+				buscar_cursos_em_destaque();
 			})
 			.catch(error => {
 				alert(error.response ? error.response.data : error);
@@ -384,6 +395,8 @@
 				document.getElementById("sobrenome").value = "";
 				document.getElementById("email_cadastro").value = "";
 				document.getElementById("senha_cadastro").value = ";"
+
+				buscar_cursos_em_destaque();
 	    	})
 	    	.catch(err => {
 	    		alert(err.response.data);
@@ -560,5 +573,6 @@
 	document.getElementById("exibir_curso_voltar").onclick = function(){
 		document.getElementById("exibir_curso_div").style.display = "none";
 		document.getElementById("div_cursos").style.display = "";
+		buscar_cursos_em_destaque();
 	}
 </script>
