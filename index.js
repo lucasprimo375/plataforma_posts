@@ -93,32 +93,48 @@ app.post("/cadastrar_curso", function(req, res){
 				titulo: fields.titulo,
 				autor: fields.autor,
 				categoria: fields.categoria
-			}
+			};
 
 			let pasta_curso = __dirname + "/cursos/" + data.titulo;
 
 			if(!fs.existsSync(pasta_curso))
 				fs.mkdirSync(pasta_curso);
 			
-			if(files.cadastro_curso_foto_capa != undefined)
+			let capa_ = undefined;
+			if(files.cadastro_curso_foto_capa != undefined){
+				capa_ = pasta_curso + "/capa";
 				fs.renameSync(files.cadastro_curso_foto_capa.path, pasta_curso + "/capa");
+			}
 
 			let i = 0;
+			let anexos_ = [];
 			while(files["anexo_" + i] != undefined){
 				fs.renameSync(files["anexo_" + i].path, pasta_curso + "/anexo_" + i);
+				anexos_.push(pasta_curso + "/anexo_" + i);
 				i++;
 			}
+
+			let corpo_ = fields.cadastro_curso_corpo;
 
 			fs.writeFileSync(pasta_curso + "/corpo.txt", fields.cadastro_curso_corpo, "utf-8");
 
 			curso_controller.cadastrar_curso(data, function(err, dados){
 				if(!err){
-					res.status(200).end(JSON.stringify(dados));
+					let dados_curso = {
+						titulo: fields.titulo,
+						capa: capa_,
+						anexos: anexos_,
+						corpo: corpo_,
+						autor: fields.nome + " " + fields.sobrenome,
+						categoria: fields.categoria
+					};
+
+					res.status(200).end(JSON.stringify(dados_curso));
 				} else {
 					res.status(404).end(JSON.stringify(dados));
 				}
 			});
-		} else{
+		} else {
 			res.status(404).end("Ocorreu um erro com os arquivos");
 		}
 	});

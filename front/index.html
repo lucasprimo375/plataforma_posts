@@ -7,6 +7,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="icon" type="image/png" href="public/favicon.png">
 </head>
 <body>
 	<div id="div_inicial" class="container">
@@ -177,6 +178,16 @@
 				<div class="col-md-4"></div>
 			</div><br><br><br>
 	</div>
+
+	<div id="exibir_curso_div" class="container">
+		<h1 id="curso_titulo"></h1>
+		<img src="" id="curso_capa" width="600" height="300">
+		<h6 id="curso_categoria"></h6>
+		<h4 id="curso_autor"></h4>
+		<p id="curso_corpo"></p>
+		<h4 id="anexos_header">Anexos</h4>
+		<ul id="curso_anexos"></ul>
+	</div>
 </body>
 </html>
 
@@ -197,6 +208,52 @@
 	  	return hash;
 	};
 
+	function exibir_curso(dados){
+		document.getElementById("div_cadastrar_curso").style.display = "none";
+		document.getElementById("exibir_curso_div").style.display = "";
+		document.getElementById("opcoes_div").style.display = "";
+		document.getElementById("titulo_pagina").innerHTML = "";
+
+		document.getElementById("curso_titulo").innerHTML = dados.titulo;
+		document.getElementById("curso_autor").innerHTML = "Escrito por " + dados.autor;
+		document.getElementById("curso_categoria").innerHTML = dados.categoria;
+		
+		if(dados.capa != undefined)
+			document.getElementById("curso_capa").src = dados.capa;
+		else document.getElementById("curso_capa").style.display = "none";
+		
+		document.getElementById("curso_corpo").innerHTML = dados.corpo;
+
+		let curso_anexos = document.getElementById("curso_anexos");
+		for(let i = 0; i < dados.anexos.length; i++){
+			let anexo = document.createElement("img");
+			anexo.src = dados.anexos[i];
+			anexo.width = 100;
+			anexo.height = 100;
+			anexo.style.marginRight = "10px";
+			anexo.style.marginBottom = "10px";
+			curso_anexos.appendChild(anexo);
+		}
+
+		if(dados.anexos.length == 0)
+			document.getElementById("anexos_header").style.display = "none";
+	}
+
+	/*exibir_curso({
+		titulo: "Como fazer um site",
+		capa: "/home/primo/plataforma_posts/cursos/mais voce/capa",
+		corpo: "é assim que se faz site",
+		anexos: ["/home/primo/plataforma_posts/cursos/mais voce/anexo_0",
+			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
+			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
+			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
+			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
+			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2"
+		],
+		autor: "lucas primo",
+		categoria: "Programação"
+	});*/
+
 	var usuario;
 
 	document.getElementById("div_cadastro").style.display = "none";
@@ -208,6 +265,7 @@
 	document.getElementById("div_cadastrar_curso").style.display = "none";
 	document.getElementById("cadastro_curso_anexo").value = "";
 	document.getElementById("cadastro_curso_foto_capa").value = "";
+	document.getElementById("exibir_curso_div").style.display = "none";
 
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
@@ -328,6 +386,8 @@
 
 		document.getElementById("cadastro_curso_anexo").value = "";
 		document.getElementById("cadastro_curso_foto_capa").value = "";
+
+		document.getElementById("exibir_curso_div").style.display = "none";
 	}
 
 	document.getElementById("salvar_perfil_botao").onclick = function(){
@@ -381,6 +441,7 @@
 		document.getElementById("div_cadastrar_curso").style.display = "";
 		document.getElementById("cadastro_curso_titulo").value = "";
 		document.getElementById("cadastro_curso_corpo").value = "";
+		document.getElementById("exibir_curso_div").style.display = "none";
 
 		let cadastrar_curso_categoria = document.getElementById("cadastrar_curso_categoria");
 
@@ -417,8 +478,10 @@
 		let fd = new FormData();
 		fd.append("titulo", document.getElementById("cadastro_curso_titulo").value);
 		fd.append("cadastro_curso_foto_capa", document.getElementById("cadastro_curso_foto_capa").files[0]);
-		fd.append("cadastro_curso_corpo", document.getElementById("cadastro_curso_corpo").value);
+		fd.append("cadastro_curso_corpo", document.getElementById("cadastro_curso_corpo").value.replace(/\n/g, "<br>"));
 		fd.append("autor", usuario.email);
+		fd.append("nome", usuario.nome);
+		fd.append("sobrenome", usuario.sobrenome);
 		fd.append("categoria", document.getElementById("cadastrar_curso_categoria").value);
 
 		let anexos = document.getElementById("cadastro_curso_anexo").files;
@@ -433,9 +496,10 @@
         axios
         	.post("http://localhost:3000/cadastrar_curso/", fd, config)
         	.then(res => {
-        		console.log(res);
+        		exibir_curso(res.data);
         	})
         	.catch(err => {
+        		console.log(err);
         		document.getElementById("publicar_curso_erro").innerHTML = "Erro!";
         	});
 	}
