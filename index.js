@@ -96,7 +96,8 @@ app.post("/editar_perfil", function(req, res){
 			nome: fields.nome,
 			sobrenome: fields.sobrenome,
 			email: fields.email,
-			mudou_senha: false
+			mudou_senha: fields.mudou_senha == "true" ? true : false,
+			senha: fields.senha
 		}
 
 		if(fs.existsSync(__dirname + "/imagens_perfil/" + data.email))

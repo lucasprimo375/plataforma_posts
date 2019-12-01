@@ -36,30 +36,43 @@ module.exports.login = function(login, callback){
 }
 
 module.exports.editar_usuario = function(dados, callback){
-	let edicao = {
-		nome: dados.nome,
-		sobrenome: dados.sobrenome
-	}
-
-	if(dados.mudou_senha)
-		edicao.senha = dados.senha;
-
-	Usuario.update(
-		{
-			nome: dados.nome,
-			sobrenome: dados.sobrenome
-		},
-		{
-			where: {
-				email: dados.email
+	if(!dados.mudou_senha){
+			Usuario.update(
+			{
+				nome: dados.nome,
+				sobrenome: dados.sobrenome
+			},
+			{
+				where: {
+					email: dados.email
+				}
 			}
-		}
-	).then(res => {
-		callback(false, "");
-	})
-	.catch(err => {
-		callback(true, err);
-	});
+		).then(res => {
+			callback(false, "");
+		})
+		.catch(err => {
+			callback(true, err);
+		});	
+	} else {
+		Usuario.update(
+			{
+				nome: dados.nome,
+				sobrenome: dados.sobrenome,
+				senha: dados.senha
+			},
+			{
+				where: {
+					email: dados.email
+				}
+			}
+		).then(res => {
+			callback(false, "");
+		})
+		.catch(err => {
+			callback(true, err);
+		});
+	}
+	
 }
 
 module.exports.buscar_por_email = function(email_, callback){
