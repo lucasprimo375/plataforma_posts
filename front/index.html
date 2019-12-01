@@ -485,7 +485,8 @@
 				document.getElementById("editar_perfil_status").innerHTML = "Sucesso!";
 				document.getElementById("editar_perfil_status").style.color = "green";
 
-				document.getElementById("imagem_perfil").src = URL.createObjectURL(img);
+				if(file.files.length > 0)
+					document.getElementById("imagem_perfil").src = URL.createObjectURL(img);
 			})
 			.catch(error => {
 				document.getElementById("editar_perfil_status").innerHTML = "Erro!";
