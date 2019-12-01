@@ -413,6 +413,8 @@
 				let cats = res.data;
 				let lista_categorias = document.getElementById("lista_categorias");
 
+				lista_categorias.innerHTML = "";
+
 				for(let i = 0; i < cats.length; i++){
 					let cat = cats[i];
 					let item = document.createElement("li");
