@@ -16,3 +16,13 @@ CREATE TABLE categorias (
 	nome VARCHAR(255),
 	PRIMARY KEY (nome)
 );
+
+Criando a tabela de cursos:
+CREATE TABLE cursos (
+	titulo VARCHAR(255),
+	autor VARCHAR(255) NOT NULL,
+	categoria VARCHAR(255) NOT NULL,
+	PRIMARY KEY (titulo),
+	FOREIGN KEY (autor) REFERENCES usuario(email),
+	FOREIGN KEY (categoria) REFERENCES categorias(nome)
+);

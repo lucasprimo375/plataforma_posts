@@ -1,3 +1,17 @@
+#publicar_curso_botao,
+#publicar_curso_voltar {
+  font-size: 2em;
+}
+
+.cadastro_curso_input {
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: gray;
+}
+
 .sucesso {
   color: green;
 }

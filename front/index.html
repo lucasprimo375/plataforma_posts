@@ -74,11 +74,9 @@
 				<div class="col-md-1">
 					<img src="imagens/logo.jpg" height="50" width="100">
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<span id="titulo_pagina"></span>
 				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1"></div>
 				<div class="col-md-1"></div>
 				<div class="col-md-1"></div>
 				<div class="col-md-1"></div>
@@ -143,14 +141,41 @@
 			<span class="bold">Senha</span><br>
 			<input class="col-md-2" type="password" id="editar_perfil_senha">
 			<div class="w-100"><br></div>
-			<span class="bold">Descrição</span><br>
-			<textarea class="col-md-4" id="editar_perfil_descricao" heigth="100"></textarea>
-			<div class="w-100"><br></div>
 			<input class="col-md-2" type="button" id="salvar_perfil_botao" value="Salvar">
 			<span id="editar_perfil_status"></span><br>
 			<div class="w-100"><br></div>
 			<input class="col-md-2" type="button" id="salvar_perfil_voltar" value="Voltar">
 		</div>
+	</div>
+
+	<div id="div_cadastrar_curso" class="container">
+			<h1>Título</h1>
+			<input class="cadastro_curso_input" type="text" id="cadastro_curso_titulo"><br><br><br>
+			
+			<h1>Foto de Capa</h1>
+			<input type="file" id="cadastro_curso_foto_capa"><br><br><br>
+
+			<h1>Corpo</h1>
+			<textarea id="cadastro_curso_corpo" rows="10" cols="80"></textarea><br><br><br>
+
+			<h1>Anexos</h1>
+			<div id="div_anexos">
+				<input type="file" id="cadastro_curso_anexo" multiple>
+			</div><br><br><br>
+
+			<h1>Categoria</h1>
+			<select id="cadastrar_curso_categoria">
+			</select><br><br><br>
+
+			<div class="row">
+				<input class="col-md-2" type="button" id="publicar_curso_botao" value="Publicar">
+				<div class="col-md-1"></div>
+				<div class="col-md-1">
+					<span id="publicar_curso_erro" class="erro"></span>
+				</div>
+				<input class="col-md-2" type="button" id="publicar_curso_voltar" value="Voltar">
+				<div class="col-md-4"></div>
+			</div><br><br><br>
 	</div>
 </body>
 </html>
@@ -180,6 +205,9 @@
 	document.getElementById("senha_login").value = "";
 	document.getElementById("div_principal").style.display = "none";
 	document.getElementById("div_inicial").style.display = "";
+	document.getElementById("div_cadastrar_curso").style.display = "none";
+	document.getElementById("cadastro_curso_anexo").value = "";
+	document.getElementById("cadastro_curso_foto_capa").value = "";
 
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
@@ -205,7 +233,6 @@
 		axios
 			.post("http://localhost:3000/login/", data)
 			.then(res => {
-				console.log(res.data);
 				document.getElementById("imagem_perfil").src = res.data.image_path;
 				usuario = res.data;
 
@@ -294,6 +321,13 @@
 		document.getElementById("file").value = "";
 
 		document.getElementById("editar_perfil_status").innerHTML = "";
+
+		document.getElementById("div_cadastrar_curso").style.display = "none";
+
+		document.getElementById("publicar_curso_erro").innerHTML = "";
+
+		document.getElementById("cadastro_curso_anexo").value = "";
+		document.getElementById("cadastro_curso_foto_capa").value = "";
 	}
 
 	document.getElementById("salvar_perfil_botao").onclick = function(){
@@ -336,6 +370,73 @@
 	document.getElementById("salvar_perfil_voltar").onclick = function(){
 		document.getElementById("opcoes_div").style.display = "";
 		document.getElementById("editar_perfil_div").style.display = "none"
-		document.getElementById("titulo_pagina").innerHTML = "";	
+		document.getElementById("titulo_pagina").innerHTML = "";
+		document.getElementById("div_cursos").style.display = "";
+	}
+
+	document.getElementById("adicionar_curso").onclick = function(){
+		document.getElementById("titulo_pagina").innerHTML = "Cadastrar Curso";
+		document.getElementById("opcoes_div").style.display = "none";
+		document.getElementById("div_cursos").style.display = "none";
+		document.getElementById("div_cadastrar_curso").style.display = "";
+		document.getElementById("cadastro_curso_titulo").value = "";
+		document.getElementById("cadastro_curso_corpo").value = "";
+
+		let cadastrar_curso_categoria = document.getElementById("cadastrar_curso_categoria");
+
+		for( let i = cadastrar_curso_categoria.options.length - 1; i >= 0 ; i-- )
+			cadastrar_curso_categoria.remove(i);
+
+		axios
+			.get("http://localhost:3000/buscar_categorias/")
+			.then(res => {
+				let cats = res.data;
+
+				for(let i = 0; i < cats.length; i++){
+					let cat = cats[i];
+					let item = document.createElement("option");
+					item.innerHTML = cat.nome;
+					item.value = cat.nome;
+					cadastrar_curso_categoria.appendChild(item);
+				}
+			})
+			.catch(err => {});
+	}
+
+	document.getElementById("publicar_curso_voltar").onclick = function(){
+		document.getElementById("titulo_pagina").innerHTML = "";
+		document.getElementById("opcoes_div").style.display = "";
+		document.getElementById("div_cursos").style.display = "";
+		document.getElementById("div_cadastrar_curso").style.display = "none";
+		document.getElementById("publicar_curso_erro").innerHTML = "";
+		document.getElementById("cadastro_curso_anexo").value = "";
+		document.getElementById("cadastro_curso_foto_capa").value = "";
+	}
+
+	document.getElementById("publicar_curso_botao").onclick = function(){
+		let fd = new FormData();
+		fd.append("titulo", document.getElementById("cadastro_curso_titulo").value);
+		fd.append("cadastro_curso_foto_capa", document.getElementById("cadastro_curso_foto_capa").files[0]);
+		fd.append("cadastro_curso_corpo", document.getElementById("cadastro_curso_corpo").value);
+		fd.append("autor", usuario.email);
+		fd.append("categoria", document.getElementById("cadastrar_curso_categoria").value);
+
+		let anexos = document.getElementById("cadastro_curso_anexo").files;
+		for(let i = 0; i < anexos.length; i++){
+			fd.append("anexo_" + i, anexos[i]);
+		}
+
+		let config = {
+            headers: { 'content-type': 'multipart/form-data' }
+        };
+
+        axios
+        	.post("http://localhost:3000/cadastrar_curso/", fd, config)
+        	.then(res => {
+        		console.log(res);
+        	})
+        	.catch(err => {
+        		document.getElementById("publicar_curso_erro").innerHTML = "Erro!";
+        	});
 	}
 </script>

@@ -6,6 +6,7 @@ var fs = require("fs");
 
 var user_controller = require("./controller/user_controller.js");
 var categorias_controller = require("./controller/categorias_controller.js");
+var curso_controller = require("./controller/curso_controller.js");
 
 var app = express();
 
@@ -80,6 +81,46 @@ app.get("/buscar_categorias", function(req, res){
 			res.status(200);
 		}
 		res.end(JSON.stringify(cats));
+	});
+});
+
+app.post("/cadastrar_curso", function(req, res){
+	let form = new formidable.IncomingForm();
+
+	form.parse(req, function(error, fields, files){
+		if(!error){
+			let data = {
+				titulo: fields.titulo,
+				autor: fields.autor,
+				categoria: fields.categoria
+			}
+
+			let pasta_curso = __dirname + "/cursos/" + data.titulo;
+
+			if(!fs.existsSync(pasta_curso))
+				fs.mkdirSync(pasta_curso);
+			
+			if(files.cadastro_curso_foto_capa != undefined)
+				fs.renameSync(files.cadastro_curso_foto_capa.path, pasta_curso + "/capa");
+
+			let i = 0;
+			while(files["anexo_" + i] != undefined){
+				fs.renameSync(files["anexo_" + i].path, pasta_curso + "/anexo_" + i);
+				i++;
+			}
+
+			fs.writeFileSync(pasta_curso + "/corpo.txt", fields.cadastro_curso_corpo, "utf-8");
+
+			curso_controller.cadastrar_curso(data, function(err, dados){
+				if(!err){
+					res.status(200).end(JSON.stringify(dados));
+				} else {
+					res.status(404).end(JSON.stringify(dados));
+				}
+			});
+		} else{
+			res.status(404).end("Ocorreu um erro com os arquivos");
+		}
 	});
 });
 
