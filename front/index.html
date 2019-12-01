@@ -230,6 +230,7 @@
 		document.getElementById("curso_corpo").innerHTML = dados.corpo;
 
 		let curso_anexos = document.getElementById("curso_anexos");
+		curso_anexos.innerHTML = "";
 		for(let i = 0; i < dados.anexos.length; i++){
 			let anexo = document.createElement("img");
 			anexo.src = dados.anexos[i];
