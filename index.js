@@ -23,9 +23,10 @@ app.post("/login", function(req, res){
 		if(err){
 			res.status(404);
 		} else {
+			data.dataValues.image_path = __dirname + "/imagens_perfil/" + data.email;
 			res.status(200);
 		}
-		data.dataValues.image_path = __dirname + "/imagens_perfil/" + data.email;
+		
 		res.end(JSON.stringify(data));
 	});
 });
