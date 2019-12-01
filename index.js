@@ -23,7 +23,11 @@ app.post("/login", function(req, res){
 		if(err){
 			res.status(404);
 		} else {
-			data.dataValues.image_path = __dirname + "/imagens_perfil/" + data.email;
+			if(fs.existsSync(__dirname + "/imagens_perfil/" + data.email))
+				data.dataValues.image_path = __dirname + "/imagens_perfil/" + data.email;
+			else
+				data.dataValues.image_path = __dirname + "/front/imagens/default-avatar.jpg";
+
 			res.status(200);
 		}
 		

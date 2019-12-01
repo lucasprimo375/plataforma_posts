@@ -421,6 +421,12 @@
 					item.classList.add("categoria_item");
 					lista_categorias.appendChild(item);
 				}
+
+				if(cats.length == 0){
+					let item = document.createElement("li");
+					item.innerHTML = "Não há categorias cadastradas"
+					lista_categorias.appendChild(item);
+				}
 			})
 			.catch(err => {
 				modal.style.display = "none";
