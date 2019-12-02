@@ -72,7 +72,8 @@
 }
 
 .categoria_item:hover,
-#imagem_perfil {
+#imagem_perfil,
+#imagem_logo:hover {
   color: gray;
   cursor: pointer;
 }

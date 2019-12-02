@@ -7,6 +7,6 @@ module.exports.buscar_categorias = function(callback){
 			callback(false, res);
 		})
 		.catch(err => {
-			callback(true, error.parent.sqlMessage);
+			callback(true, error.name);
 		});
 }

@@ -12,7 +12,7 @@ module.exports.adicionar_usuario = function(usuario, callback){
 		}).then(novo_usuario => {
 			callback(false, "Cadastro realizado com sucesso");
 		}).catch(error => {
-			callback(true, error.parent.sqlMessage);
+			callback(true, error.name);
 		});
 	}
 }
@@ -31,7 +31,7 @@ module.exports.login = function(login, callback){
 			callback(false, res[0]);
 		}
 	}).catch(error => {
-		callback(true, error);
+		callback(true, error.name);
 	});
 }
 
@@ -51,7 +51,7 @@ module.exports.editar_usuario = function(dados, callback){
 			callback(false, "");
 		})
 		.catch(err => {
-			callback(true, err);
+			callback(true, err.name);
 		});	
 	} else {
 		Usuario.update(
@@ -69,7 +69,7 @@ module.exports.editar_usuario = function(dados, callback){
 			callback(false, "");
 		})
 		.catch(err => {
-			callback(true, err);
+			callback(true, err.name);
 		});
 	}
 	
@@ -91,6 +91,6 @@ module.exports.buscar_por_email = function(email_, callback){
 			}
 		})
 		.catch(err => {
-			callback(true, err);
+			callback(true, err.name);
 		});
 }

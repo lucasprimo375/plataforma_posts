@@ -73,19 +73,16 @@
 	<div id="div_principal">
 		<div class="row">
 				<div class="col-md-1">
-					<img src="imagens/logo.jpg" height="50" width="100">
+					<img id="imagem_logo" src="imagens/logo.jpg" height="50" width="100">
 				</div>
 				<div class="col-md-4">
 					<span id="titulo_pagina"></span>
 				</div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1"></div>
-				<div class="col-md-1 row">
-					<span class="col-md-6" id="bem_vindo_mensagem"></span>
+				<div class="col-md-4"></div>
+				<div class="col-md-1">
+					<span id="bem_vindo_mensagem"></span>
+				</div>
+				<div class="col-md-2">
 					<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
 				</div>
 		</div>
@@ -109,8 +106,8 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
 			<div class="col-md-4">
-				<input type="text" id="buscar_curso" placeholder="Curso">
-				<input type="button" id="buscar_curso" value="Buscar">
+				<input type="text" id="buscar_curso_input" placeholder="Curso">
+				<input type="button" id="buscar_curso_botao" value="Buscar">
 			</div>
 			<div class="col-md-2">
 				<input type="button" id="adicionar_curso" value="Adicionar curso">
@@ -130,6 +127,7 @@
 
 	<div id="editar_perfil_div" class="row">
 		<div class="container">
+			<span class="bold">Edite apenas os campos que você deseja mudar</span><br><br>
 			<span class="bold">Foto</span><br>
 			<input class="col-md-6" type="file" id="file">
 			<div class="w-100"><br></div>
@@ -251,6 +249,8 @@
 	}
 
 	function povoar_cursos_div(cursos){
+		document.getElementById("div_cursos").style.display = "";
+
 		limpar_cursos_div();
 
 		let cursos_container = document.getElementById("cursos_container");
@@ -283,38 +283,29 @@
 						document.getElementById("div_cursos").style.display = "none";
 						exibir_curso(res.data);
 					})
-					.catch(err => {
-						console.log(err);
+					.catch(error => {
+						alert(error.response ? error.response.data : error);
 					});
 			}
 		}
+
+		if(cursos.length == 0){
+			let titulo = document.createElement("li");
+			titulo.innerHTML = "Não há cursos para exibir";
+			cursos_container.appendChild(titulo);
+		}
 	}
 
-	function buscar_cursos_em_destaque(){
+	function buscar_cursos_em_destaque(categoria_ = undefined){
 		axios
-			.get("http://localhost:3000/cursos_em_destaque/", {categoria: undefined})
+			.post("http://localhost:3000/cursos_em_destaque/", {categoria: categoria_})
 			.then(response => {
 				povoar_cursos_div(response.data);
 			})
-			.catch(err => {
-				console.log(err);
+			.catch(error => {
+				alert(error.response ? error.response.data : error);
 			});
 	}
-
-	/*exibir_curso({
-		titulo: "Como fazer um site",
-		capa: "/home/primo/plataforma_posts/cursos/mais voce/capa",
-		corpo: "é assim que se faz site",
-		anexos: ["/home/primo/plataforma_posts/cursos/mais voce/anexo_0",
-			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
-			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
-			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
-			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2",
-			"/home/primo/plataforma_posts/cursos/mais voce/anexo_2","/home/primo/plataforma_posts/cursos/mais voce/anexo_2"
-		],
-		autor: "lucas primo",
-		categoria: "Programação"
-	});*/
 
 	var usuario;
 
@@ -399,8 +390,8 @@
 
 				buscar_cursos_em_destaque();
 	    	})
-	    	.catch(err => {
-	    		alert(err.response.data);
+	    	.catch(error => {
+	    		alert(error.response ? error.response.data : error);
 	    	});
 	}
 
@@ -420,9 +411,15 @@
 					let cat = cats[i];
 					let item = document.createElement("li");
 					item.innerHTML = cat.nome;
-					item.id = "categoria_" + cat.nome;
+					item.id = cat.nome;
 					item.classList.add("categoria_item");
 					lista_categorias.appendChild(item);
+
+					item.onclick = function(){
+						document.getElementById("categorias_modal").style.display = "none";
+						document.getElementById("cursos_titulo").innerHTML = "Cursos em Destaque de " + this.id;
+						buscar_cursos_em_destaque(this.id);
+					}
 				}
 
 				if(cats.length == 0){
@@ -431,9 +428,9 @@
 					lista_categorias.appendChild(item);
 				}
 			})
-			.catch(err => {
+			.catch(error => {
 				modal.style.display = "none";
-				alert(err);
+				alert(error.response ? error.response.data : error);
 			})
 	}
 
@@ -574,8 +571,8 @@
         	.then(res => {
         		exibir_curso(res.data);
         	})
-        	.catch(err => {
-        		console.log(err);
+        	.catch(error => {
+        		alert(error.response ? error.response.data : error);
         		document.getElementById("publicar_curso_erro").innerHTML = "Erro!";
         	});
 	}
@@ -583,6 +580,28 @@
 	document.getElementById("exibir_curso_voltar").onclick = function(){
 		document.getElementById("exibir_curso_div").style.display = "none";
 		document.getElementById("div_cursos").style.display = "";
+	}
+
+	document.getElementById("buscar_curso_botao").onclick = function(){
+		let curso_ = document.getElementById("buscar_curso_input").value;
+
+		axios
+			.post("http://localhost:3000/buscar_curso/", {curso: curso_})
+			.then(res => {
+				povoar_cursos_div(res.data);
+				document.getElementById("buscar_curso_input").value = "";
+				document.getElementById("cursos_titulo").innerHTML = "Resultado da Busca";
+			})
+			.catch(error => {
+				alert(error.response ? error.response.data : error);
+			});
+	}
+
+	document.getElementById("imagem_logo").onclick = function(){
+		document.getElementById("opcoes_div").style.display = "";
+		document.getElementById("editar_perfil_div").style.display = "none";
+		document.getElementById("div_cadastrar_curso").style.display = "none";
+		document.getElementById("exibir_curso_div").style.display = "none";
 		buscar_cursos_em_destaque();
 	}
 </script>

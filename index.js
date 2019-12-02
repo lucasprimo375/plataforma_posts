@@ -69,7 +69,10 @@ app.get("/buscar_curso/:titulo", function(req, res){
 				i++;
 			}
 
-			dados_curso.corpo = fs.readFileSync(pasta_curso + "/corpo.txt", "utf-8");
+			if(fs.existsSync(pasta_curso + "/corpo.txt"))
+				dados_curso.corpo = fs.readFileSync(pasta_curso + "/corpo.txt", "utf-8");
+			else
+				dados_curso.corpo = "";
 
 			user_controller.buscar_por_email(curso.autor, function(err, usuario){
 				if(err){
@@ -181,7 +184,7 @@ app.post("/cadastrar_curso", function(req, res){
 	});
 });
 
-app.get("/cursos_em_destaque", function(req, res){
+app.post("/cursos_em_destaque", function(req, res){
 	curso_controller.cursos_em_destaque(req.body.categoria, function(err, cursos){
 		if(err) res.status(404);
 		else {
@@ -197,6 +200,24 @@ app.get("/cursos_em_destaque", function(req, res){
 		}
 
 		res.end(JSON.stringify(cursos));
+	});
+});
+
+app.post("/buscar_curso", function(req, res){
+	curso_controller.buscar_por_titulo_semelhante(req.body.curso, function(err, cursos){
+		if(err){
+			res.status(404).end(JSON.stringify(cursos));
+		} else {
+			for(let i = 0; i < cursos.length; i++){
+				let capa = __dirname + "/cursos/" + cursos[i].dataValues.titulo + "/capa";
+				if(fs.existsSync(capa))
+					cursos[i].dataValues.capa = capa;
+				else
+					cursos[i].dataValues.capa = __dirname + "/front/imagens/logo.jpg";
+			}
+
+			res.status(200).end(JSON.stringify(cursos));
+		}
 	});
 });
 

@@ -1,4 +1,5 @@
 const Curso = require("../models/curso.js").Curso;
+const Sequelize = require("sequelize");
 
 module.exports.cadastrar_curso = function(dados, callback){
 	if(dados.autor == "" || dados.categoria == "" || dados.titulo == ""){
@@ -27,7 +28,7 @@ module.exports.cursos_em_destaque = function(categoria, callback){
 	}).then(res => {
 		callback(false, res);
 	}).catch(err => {
-		callback(true, err);
+		callback(true, err.name);
 	});
 }
 
@@ -47,6 +48,22 @@ module.exports.buscar_por_titulo = function(titulo_, callback){
 			}
 		})
 		.catch(err => {
-			callback(true, err);
+			callback(true, err.name);
+		});
+}
+
+module.exports.buscar_por_titulo_semelhante = function(titulo_, callback){
+	Curso
+		.findAll({
+			where: {
+				titulo: {[Sequelize.Op.like]: "%" + titulo_ + "%"}
+			},
+			attributes: ["titulo"]
+		})
+		.then(res => {
+			callback(false, res);
+		})
+		.catch(err => {
+			callback(true, err.name);
 		});
 }
