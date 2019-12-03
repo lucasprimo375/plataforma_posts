@@ -11,7 +11,7 @@ module.exports.cadastrar_curso = function(dados, callback){
 				callback(false, "Curso cadastrado com sucesso");
 			})
 			.catch(err => {
-				callback(true, "Erro ao cadastrar o curso");
+				callback(true, err.name);
 			});
 	}
 }
@@ -66,4 +66,17 @@ module.exports.buscar_por_titulo_semelhante = function(titulo_, callback){
 		.catch(err => {
 			callback(true, err.name);
 		});
+}
+
+module.exports.buscar_por_autor = function(autor_, callback){
+	Curso.findAll({
+		where: {
+			autor: autor_
+		},
+		attributes: ["titulo"]
+	}).then(res => {
+		callback(false, res);
+	}).catch(err => {
+		callback(true, err.name);
+	});
 }

@@ -221,6 +221,24 @@ app.post("/buscar_curso", function(req, res){
 	});
 });
 
+app.post("/meus_cursos", function(req, res){
+	curso_controller.buscar_por_autor(req.body.autor, function(err, cursos){
+		if(err){
+			res.status(404).end(JSON.stringify(cursos));
+		} else {
+			for(let i = 0; i < cursos.length; i++){
+				let capa = __dirname + "/cursos/" + cursos[i].dataValues.titulo + "/capa";
+				if(fs.existsSync(capa))
+					cursos[i].dataValues.capa = capa;
+				else
+					cursos[i].dataValues.capa = __dirname + "/front/imagens/logo.jpg";
+			}
+
+			res.status(200).end(JSON.stringify(cursos));
+		}
+	});
+});
+
 app.listen(3000, function(){
 	console.log("app rodando na porta 3000");
 });

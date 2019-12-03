@@ -113,8 +113,9 @@
 				<input type="button" id="adicionar_curso" value="Adicionar curso">
 			</div>
 			<div class="col-md-1"></div>
-			<div class="col-md-1"></div>
-			<div class="col-md-1"></div>
+			<div class="col-md-2">
+				<input type="button" id="meus_cursos_botao" value="Meus cursos">
+			</div>
 		</div>
 
 		<br>
@@ -632,5 +633,18 @@
 		document.getElementById("anexo_imagem_div").style.display = "none";
 		document.getElementById("exibir_curso_div").style.display = "";
 		document.getElementById("opcoes_div").style.display = "";
+	}
+
+	document.getElementById("meus_cursos_botao").onclick = function(){
+		axios
+			.post("http://localhost:3000/meus_cursos/", {autor: usuario.email})
+			.then(res => {
+				document.getElementById("exibir_curso_div").style.display = "none";
+				document.getElementById("cursos_titulo").innerHTML = "Meus Cursos";
+				povoar_cursos_div(res.data);
+			})
+			.catch(error => {
+				alert(error.response ? error.response.data : error);
+			});
 	}
 </script>
