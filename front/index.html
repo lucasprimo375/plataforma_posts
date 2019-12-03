@@ -437,7 +437,7 @@
 
 					item.onclick = function(){
 						document.getElementById("categorias_modal").style.display = "none";
-						document.getElementById("cursos_titulo").innerHTML = "Cursos em Destaque de " + this.id;
+						document.getElementById("cursos_titulo").innerHTML = "Cursos de " + this.id + " em Destaque";
 						buscar_cursos_em_destaque(this.id);
 					}
 				}
@@ -613,6 +613,8 @@
 				povoar_cursos_div(res.data);
 				document.getElementById("buscar_curso_input").value = "";
 				document.getElementById("cursos_titulo").innerHTML = "Resultado da Busca";
+
+				document.getElementById("exibir_curso_div").style.display = "none";
 			})
 			.catch(error => {
 				alert(error.response ? error.response.data : error);
@@ -626,6 +628,7 @@
 		document.getElementById("exibir_curso_div").style.display = "none";
 		document.getElementById("anexo_imagem_div").style.display = "none";
 		document.getElementById("titulo_pagina").innerHTML = "";
+		document.getElementById("cursos_titulo").innerHTML = "Cursos em Destaque";
 		buscar_cursos_em_destaque();
 	}
 
