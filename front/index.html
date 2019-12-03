@@ -162,6 +162,7 @@
 			<textarea id="cadastro_curso_corpo" rows="10" cols="80"></textarea><br><br><br>
 
 			<h1>Anexos</h1>
+			<h6>Resolução recomendada 800x600</h6>
 			<div id="div_anexos">
 				<input type="file" id="cadastro_curso_anexo" multiple>
 			</div><br><br><br>
@@ -190,6 +191,11 @@
 		<h4 id="anexos_header">Anexos</h4>
 		<ul id="curso_anexos"></ul>
 		<input type="button" id="exibir_curso_voltar" value="Voltar"><br><br><br>
+	</div>
+
+	<div id="anexo_imagem_div" class="container">
+		<img id="anexo_imagem_elemento" width="800" height="600"><br><br><br>
+		<input type="button" id="exibir_anexo_voltar" value="Voltar"><br><br><br>
 	</div>
 </body>
 </html>
@@ -229,6 +235,9 @@
 
 		let curso_anexos = document.getElementById("curso_anexos");
 		curso_anexos.innerHTML = "";
+
+		document.getElementById("anexos_header").style.display = "";
+
 		for(let i = 0; i < dados.anexos.length; i++){
 			let anexo = document.createElement("img");
 			anexo.src = dados.anexos[i];
@@ -237,6 +246,15 @@
 			anexo.style.marginRight = "10px";
 			anexo.style.marginBottom = "10px";
 			curso_anexos.appendChild(anexo);
+
+			anexo.classList.add("anexo_imagem");
+
+			anexo.onclick = function(){
+				document.getElementById("anexo_imagem_div").style.display = "";
+				document.getElementById("anexo_imagem_elemento").src = this.src;
+				document.getElementById("exibir_curso_div").style.display = "none";
+				document.getElementById("opcoes_div").style.display = "none";
+			}
 		}
 
 		if(dados.anexos.length == 0)
@@ -319,6 +337,7 @@
 	document.getElementById("cadastro_curso_anexo").value = "";
 	document.getElementById("cadastro_curso_foto_capa").value = "";
 	document.getElementById("exibir_curso_div").style.display = "none";
+	document.getElementById("anexo_imagem_div").style.display = "none";
 
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
@@ -460,6 +479,8 @@
 		document.getElementById("cadastro_curso_foto_capa").value = "";
 
 		document.getElementById("exibir_curso_div").style.display = "none";
+
+		document.getElementById("anexo_imagem_div").style.display = "none";
 	}
 
 	document.getElementById("salvar_perfil_botao").onclick = function(){
@@ -602,6 +623,14 @@
 		document.getElementById("editar_perfil_div").style.display = "none";
 		document.getElementById("div_cadastrar_curso").style.display = "none";
 		document.getElementById("exibir_curso_div").style.display = "none";
+		document.getElementById("anexo_imagem_div").style.display = "none";
+		document.getElementById("titulo_pagina").innerHTML = "";
 		buscar_cursos_em_destaque();
+	}
+
+	document.getElementById("exibir_anexo_voltar").onclick = function(){
+		document.getElementById("anexo_imagem_div").style.display = "none";
+		document.getElementById("exibir_curso_div").style.display = "";
+		document.getElementById("opcoes_div").style.display = "";
 	}
 </script>
