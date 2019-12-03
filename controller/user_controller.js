@@ -75,18 +75,21 @@ module.exports.editar_usuario = function(dados, callback){
 	
 }
 
-module.exports.buscar_por_email = function(email_, callback){
+module.exports.buscar_por_email = function(email_, callback, i=undefined){
 	Usuario
 		.findAll({
 			where: {
 				email: email_
 			},
-			attributes: ["nome", "sobrenome"]
+			attributes: ["nome", "sobrenome", "email"]
 		})
 		.then(res => {
 			if(res.length == 0){
 				callback(true, "Não há usuário com esse email");
 			} else {
+				if(i != undefined){
+					res[0].id = i;
+				}
 				callback(false, res[0]);
 			}
 		})

@@ -26,3 +26,14 @@ CREATE TABLE cursos (
 	FOREIGN KEY (autor) REFERENCES usuario(email),
 	FOREIGN KEY (categoria) REFERENCES categorias(nome)
 );
+
+Crianda tabela de comentários:
+CREATE TABLE comentarios (
+	id INT AUTO_INCREMENT,
+	curso VARCHAR(255),
+	autor VARCHAR(255),
+	conteudo VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (curso) REFERENCES cursos(titulo),
+	FOREIGN KEY (autor) REFERENCES usuario(email)
+) AUTO_INCREMENT = 0;

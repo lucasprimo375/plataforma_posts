@@ -85,6 +85,19 @@
 }
 
 #lista_categorias,
-#cursos_container {
+#cursos_container,
+#lista_comentarios {
   list-style: none;
+}
+
+.comentario_autor {
+  border-bottom-style: solid;
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+}
+
+.comentario {
+  border-style: solid;
+  border-color: gray;
+  border-width: 1px;
 }

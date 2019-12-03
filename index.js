@@ -7,6 +7,7 @@ var fs = require("fs");
 var user_controller = require("./controller/user_controller.js");
 var categorias_controller = require("./controller/categorias_controller.js");
 var curso_controller = require("./controller/curso_controller.js");
+var comentario_controller = require("./controller/comentario_controller.js");
 
 var app = express();
 
@@ -79,8 +80,36 @@ app.get("/buscar_curso/:titulo", function(req, res){
 					res.status(404).end(JSON.stringify(usuario));
 				} else {
 					dados_curso.autor = usuario.nome + " " + usuario.sobrenome;
-				
-					res.status(200).end(JSON.stringify(dados_curso));
+
+					comentario_controller.buscar_por_curso(dados_curso.titulo, function(err, dados){
+						if(err){
+							res.status(404).end(JSON.stringify(dados));	
+						} else {
+							if(dados.length == 0){
+								dados_curso.comentarios = [];
+								res.status(200).end(JSON.stringify(dados_curso));
+							}
+
+							for(let i = 0; i < dados.length; i++){
+								user_controller.buscar_por_email(dados[i].dataValues.autor, function(err, data){
+									if(err){
+										dados[data.id].dataValues.nome = "*";
+										dados[data.id].dataValues.sobrenome = "*";
+										dados[data.id].dataValues.email = "*";
+									} else {
+										dados[data.id].dataValues.nome = data.nome;
+										dados[data.id].dataValues.sobrenome = data.sobrenome;
+										dados[data.id].dataValues.email = data.email;
+									}
+
+									if( i == dados.length - 1){
+										dados_curso.comentarios = dados;
+										res.status(200).end(JSON.stringify(dados_curso));
+									}
+								}, i);
+							}
+						}
+					});
 				}
 			});
 		}
@@ -237,6 +266,19 @@ app.post("/meus_cursos", function(req, res){
 			res.status(200).end(JSON.stringify(cursos));
 		}
 	});
+});
+
+app.post("/adicionar_comentario", function(req, res){
+	if(req.body.conteudo.length < 5){
+		res.status(404).end("Comentário muito pequeno. Dever ter pelo 5 caracteres");
+	} else {
+		comentario_controller.adicionar_comentario(req.body, function(err, dados){
+			if(err) res.status(404);
+			else res.status(200);
+
+			res.end(JSON.stringify(dados));
+		});
+	}
 });
 
 app.listen(3000, function(){

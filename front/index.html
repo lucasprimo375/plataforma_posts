@@ -185,12 +185,23 @@
 
 	<div id="exibir_curso_div" class="container">
 		<h1 id="curso_titulo"></h1>
+		
 		<img src="" id="curso_capa" width="600" height="300">
+		
 		<h6 id="curso_categoria"></h6>
+		
 		<h4 id="curso_autor"></h4>
+		
 		<p id="curso_corpo"></p>
+		
 		<h4 id="anexos_header">Anexos</h4>
 		<ul id="curso_anexos"></ul>
+
+		<h4 id="">Comentários</h4>
+		<ul id="lista_comentarios"></ul>
+		<textarea id="curso_comentario_corpo" rows="5" cols="40"></textarea><br>
+		<input type="button" id="publicar_comentario_botao" value="Publicar Comentario"><br><br><br>
+		
 		<input type="button" id="exibir_curso_voltar" value="Voltar"><br><br><br>
 	</div>
 
@@ -223,6 +234,8 @@
 		document.getElementById("exibir_curso_div").style.display = "";
 		document.getElementById("opcoes_div").style.display = "";
 		document.getElementById("titulo_pagina").innerHTML = "";
+		document.getElementById("curso_comentario_corpo").value = "";
+		document.getElementById("lista_comentarios").innerHTML = "";
 
 		document.getElementById("curso_titulo").innerHTML = dados.titulo;
 		document.getElementById("curso_autor").innerHTML = "Escrito por " + dados.autor;
@@ -260,6 +273,25 @@
 
 		if(dados.anexos.length == 0)
 			document.getElementById("anexos_header").style.display = "none";
+
+		for(let i = 0; i < dados.comentarios.length; i++){
+			let item = document.createElement("li");
+			item.classList.add("comentario");
+
+			let autor = document.createElement("h6");
+			autor.classList.add("comentario_autor");
+			autor.innerHTML = dados.comentarios[i].nome + " " + dados.comentarios[i].sobrenome + " - " + dados.comentarios[i].email;
+
+			let conteudo = document.createElement("p");
+			conteudo.innerHTML = dados.comentarios[i].conteudo;
+
+			item.appendChild(autor);
+			item.appendChild(conteudo);
+
+			document.getElementById("lista_comentarios").appendChild(item);
+
+			document.getElementById("lista_comentarios").appendChild(document.createElement("br"));
+		}
 	}
 
 	function limpar_cursos_div(){
@@ -645,6 +677,40 @@
 				document.getElementById("exibir_curso_div").style.display = "none";
 				document.getElementById("cursos_titulo").innerHTML = "Meus Cursos";
 				povoar_cursos_div(res.data);
+			})
+			.catch(error => {
+				alert(error.response ? error.response.data : error);
+			});
+	}
+
+	document.getElementById("publicar_comentario_botao").onclick = function(){
+		let comentario = {
+			curso: document.getElementById("curso_titulo").innerHTML,
+			conteudo: document.getElementById("curso_comentario_corpo").value.replace(/\n/g, "<br>"),
+			autor: usuario.email
+		};
+
+		axios
+			.post("http://localhost:3000/adicionar_comentario/", comentario)
+			.then(res => {
+				let item = document.createElement("li");
+				item.classList.add("comentario");
+
+				let autor = document.createElement("h6");
+				autor.classList.add("comentario_autor");
+				autor.innerHTML = usuario.nome + " " + usuario.sobrenome + " - " + usuario.email;
+
+				let conteudo = document.createElement("p");
+				conteudo.innerHTML = comentario.conteudo;
+
+				item.appendChild(autor);
+				item.appendChild(conteudo);
+
+				document.getElementById("lista_comentarios").appendChild(item);
+
+				document.getElementById("lista_comentarios").appendChild(document.createElement("br"));
+
+				document.getElementById("curso_comentario_corpo").value = "";
 			})
 			.catch(error => {
 				alert(error.response ? error.response.data : error);
