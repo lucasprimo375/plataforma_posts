@@ -86,12 +86,15 @@
 				<div class="col-md-4">
 					<span id="titulo_pagina"></span>
 				</div>
-				<div class="col-md-4"></div>
+				<div class="col-md-3"></div>
 				<div class="col-md-1">
 					<span id="bem_vindo_mensagem"></span>
 				</div>
 				<div class="col-md-2">
 					<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
+				</div>
+				<div class="col-md-1">
+					<input type="button" id="botao_sair" value="Sair">
 				</div>
 		</div>
 
@@ -208,7 +211,7 @@
 		<h4 id="">Comentários</h4>
 		<ul id="lista_comentarios"></ul>
 		<textarea id="curso_comentario_corpo" rows="5" cols="40"></textarea><br>
-		<input type="button" id="publicar_comentario_botao" value="Publicar Comentario"><br><br><br>
+		<input type="button" id="publicar_comentario_botao" value="Publicar Comentário"><br><br><br>
 		
 		<input type="button" id="exibir_curso_voltar" value="Voltar"><br><br><br>
 	</div>
@@ -414,6 +417,9 @@
 				document.getElementById("cursos_titulo").innerHTML = "Cursos em Destaque";
 
 				buscar_cursos_em_destaque();
+
+				document.getElementById("email_login").value = "";
+				document.getElementById("senha_login").value = "";
 			})
 			.catch(error => {
 				alert(error.response ? error.response.data : error);
@@ -723,5 +729,17 @@
 			.catch(error => {
 				alert(error.response ? error.response.data : error);
 			});
+	}
+
+	document.getElementById("botao_sair").onclick = function(){
+		usuario = {};
+
+		document.getElementById("div_inicial").style.display = "";
+		document.getElementById("div_cadastro").style.display = "none";
+		document.getElementById("div_principal").style.display = "none";
+		document.getElementById("editar_perfil_div").style.display = "none";
+		document.getElementById("div_cadastrar_curso").style.display = "none";
+		document.getElementById("exibir_curso_div").style.display = "none";
+		document.getElementById("anexo_imagem_div").style.display = "none";
 	}
 </script>

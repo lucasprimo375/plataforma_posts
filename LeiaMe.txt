@@ -1,4 +1,4 @@
-O postgres tem que ter um usuário com nome e senha "admin".
+O mysql tem que ter um usuário com nome e senha "admin".
 
 O nome do banco de dados mysql é vaga_cursos.
 
