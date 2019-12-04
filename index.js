@@ -15,6 +15,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
+categorias_controller.cadastrar_categorias(
+	["Design", "Culinária", "Fotografia", "Marketing", 
+	"Cálculo", "Inglês", "Jogos", "Programação", "Outros",
+	"Esportes"])
+
 app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/front/index.html");
 });
