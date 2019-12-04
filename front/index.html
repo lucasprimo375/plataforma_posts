@@ -241,6 +241,11 @@
 				<div class="row">
 					<input class="col-md-6" type="button" value="Voltar" id="email_recuperar_senha_voltar">
 				</div>
+
+				<br>
+
+				<div id="enviando_email_div">Enviando email</div>
+				<div id="enviando_email_loader"></div>
 			</div>
 		</div>	
 	</div>
@@ -772,20 +777,31 @@
 		document.getElementById("div_inicial").style.display = "none";
 		document.getElementById("div_recuperar_senha").style.display = "";
 		document.getElementById("email_recuperar_senha").value = "";
+		document.getElementById("enviando_email_div").style.display = "none";
+		document.getElementById("enviando_email_loader").style.display = "none";
 	}
 
 	document.getElementById("email_recuperar_senha_voltar").onclick = function(){
 		document.getElementById("div_inicial").style.display = "";
 		document.getElementById("div_recuperar_senha").style.display = "none";
+		document.getElementById("enviando_email_div").style.display = "none";
+		document.getElementById("enviando_email_loader").style.display = "none";
 	}
 
 	document.getElementById("email_recuperar_senha_botao").onclick = function(){
+		document.getElementById("enviando_email_div").style.display = "";
+		document.getElementById("enviando_email_loader").style.display = "";
+
 		axios
 			.post("http://localhost:3000/recuperar_senha/", {email: document.getElementById("email_recuperar_senha").value})
 			.then(res => {
-				alert("Email enviado. Cheque a pasta de spam de o email não estiver na caixa de entrada");
+				document.getElementById("enviando_email_div").style.display = "none";
+				document.getElementById("enviando_email_loader").style.display = "none";
+				alert("Email enviado. Cheque a pasta de spam se o email não estiver na caixa de entrada");
 			})
 			.catch(error => {
+				document.getElementById("enviando_email_div").style.display = "none";
+				document.getElementById("enviando_email_loader").style.display = "none";
 				alert("O endereço de email fornecido não existe ou está inacessível");
 			});
 	}

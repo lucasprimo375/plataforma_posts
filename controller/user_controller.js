@@ -97,3 +97,27 @@ module.exports.buscar_por_email = function(email_, callback, i=undefined){
 			callback(true, err.name);
 		});
 }
+
+module.exports.mudar_senha = function(dados, callback){
+	Usuario
+		.update(
+			{
+				senha: dados.senha
+			},
+			{
+				where: {
+					email: dados.email
+				}
+			}
+		)
+		.then(res => {
+			if(res[0] == 0){
+				callback(true, "Email não encontrado");
+			} else {
+				callback(false, "Senha atualizada com sucesso");
+			}
+		})
+		.catch(err => {
+			callback(true, err.name);
+		});
+}

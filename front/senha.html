@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<title>Senha</title>
+</head>
+<body>
+	<h1>Digite sua nova senha abaixo</h1>
+	Nova senha:<br>
+	<input type="password" id="senha"><br><br>
+	<input type="button" id="botao" value="Mudar senha">
+	<input style="visibility:hidden;" id="e" value="email">
+</body>
+
+<script type="text/javascript">
+	String.prototype.hashCode = function() {
+	  	var hash = 0, i, chr;
+	  	if (this.length === 0) return hash;
+	  	
+	  	for (i = 0; i < this.length; i++) {
+	    	chr   = this.charCodeAt(i);
+	    	hash  = ((hash << 5) - hash) + chr;
+	    	hash |= 0; // Convert to 32bit integer
+	  	}
+	  	return hash;
+	};
+
+	document.getElementById("botao").onclick = function(){
+		let dados = {
+			email: document.getElementById("e").value,
+			senha: document.getElementById("senha").value.hashCode().toString()
+		};
+
+		axios
+			.post("http://localhost:3000/mudar_senha/", dados)
+			.then(res => {
+				alert(res.data);
+			})
+			.catch(err => {
+				alert(err.response ? err.response.data : err);
+			});
+	}
+</script>
+</html>

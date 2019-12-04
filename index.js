@@ -295,7 +295,7 @@ app.post("/recuperar_senha", function(req, res){
 	  	from: "lucasprimo375@hotmail.com",
 	  	to: req.body.email,
 	  	subject: "Email de Recuperação de Senha - VagaCursos",
-	  	html: fs.readFileSync("front/recuperar_senha.html")
+	  	html: fs.readFileSync("front/recuperar_senha.html", "utf-8").replace("email", req.body.email)
 	};
 
 	transporter.sendMail(mailOptions, function(error, info){
@@ -304,6 +304,19 @@ app.post("/recuperar_senha", function(req, res){
 	  } else {
 	    res.status(404).end(JSON.stringify(error));
 	  }
+	});
+});
+
+app.get("/recuperar_senha/:email", function(req, res){
+	res.end(fs.readFileSync("front/senha.html", "utf-8").replace("email", req.params.email));
+});
+
+app.post("/mudar_senha", function(req, res){
+	user_controller.mudar_senha(req.body, function(err, msg){
+		if(err) res.status(404);
+		else res.status(200);
+
+		res.end(JSON.stringify(msg));
 	});
 });
 
