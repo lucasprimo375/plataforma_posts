@@ -30,3 +30,18 @@ module.exports.buscar_por_curso = function(curso_, callback){
 			callback(true, err.name);
 		});
 }
+
+module.exports.deletar_por_curso = function(curso_, callback){
+	Comentario
+		.destroy({
+			where: {
+				curso: curso_
+			}
+		})
+		.then(res => {
+			callback(false, res);
+		})
+		.catch(err => {
+			callback(true, err.name);
+		});
+}

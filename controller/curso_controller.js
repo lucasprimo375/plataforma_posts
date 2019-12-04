@@ -80,3 +80,18 @@ module.exports.buscar_por_autor = function(autor_, callback){
 		callback(true, err.name);
 	});
 }
+
+module.exports.excluir_curso_por_titulo = function(curso, callback){
+	Curso
+		.destroy({
+			where: {
+				titulo: curso
+			}
+		})
+		.then(res => {
+			callback(false, res);
+		})
+		.catch(err => {
+			callback(true, err.name);
+		});
+}

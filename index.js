@@ -18,7 +18,12 @@ app.use(cors());
 categorias_controller.cadastrar_categorias(
 	["Design", "Culinária", "Fotografia", "Marketing", 
 	"Cálculo", "Inglês", "Jogos", "Programação", "Outros",
-	"Esportes"])
+	"Esportes"]);
+
+let pasta_cursos = __dirname + "/cursos/";
+if(!fs.existsSync(pasta_cursos)){
+	fs.mkdirSync(pasta_cursos);
+}
 
 app.get("/", function(req, res) {
 	res.sendFile(__dirname + "/front/index.html");
@@ -60,6 +65,7 @@ app.get("/buscar_curso/:titulo", function(req, res){
 			let dados_curso = {};
 			dados_curso.titulo = req.params.titulo;
 			dados_curso.categoria = curso.categoria;
+			dados_curso.autor_email = curso.autor;
 
 			let pasta_curso = __dirname + "/cursos/" + dados_curso.titulo;
 
@@ -284,6 +290,41 @@ app.post("/adicionar_comentario", function(req, res){
 			res.end(JSON.stringify(dados));
 		});
 	}
+});
+
+app.post("/deletar_curso", function(req, res){
+	comentario_controller.deletar_por_curso(req.body.curso, function(e, data){
+		if(e) {
+			res.status(404).end(JSON.stringify(data));
+		}
+		else {
+			curso_controller.excluir_curso_por_titulo(req.body.curso, function(err, dados){
+				if(err) {
+					res.status(404).end(JSON.stringify(dados));
+				}
+				else {
+					let pasta_curso = __dirname + "/cursos/" + req.body.curso;
+
+					if(fs.existsSync(pasta_curso + "/capa"))
+						fs.unlinkSync(pasta_curso + "/capa");
+
+					if(fs.existsSync(pasta_curso + "/corpo.txt"))
+						fs.unlinkSync(pasta_curso + "/corpo.txt");
+
+					let i = 0;
+					while(fs.existsSync(pasta_curso + "/anexo_" + i)){
+						fs.unlinkSync(pasta_curso + "/anexo_" + i);
+						i++;
+					}
+
+					if(fs.existsSync(pasta_curso))
+						fs.rmdirSync(pasta_curso);
+
+					res.status(200).end(JSON.stringify(dados));
+				}
+			});
+		}
+	});
 });
 
 app.listen(3000, function(){
