@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 var formidable = require("formidable");
 var fs = require("fs");
+var nodemailer = require("nodemailer");
 
 var user_controller = require("./controller/user_controller.js");
 var categorias_controller = require("./controller/categorias_controller.js");
@@ -279,6 +280,31 @@ app.post("/adicionar_comentario", function(req, res){
 			res.end(JSON.stringify(dados));
 		});
 	}
+});
+
+app.post("/recuperar_senha", function(req, res){
+	let transporter = nodemailer.createTransport({
+		service: "hotmail",
+		auth: {
+	    	user: "lucasprimo375@hotmail.com",
+	    	pass: JSON.parse(fs.readFileSync("email.json")).senha
+	  	}
+	});
+
+	let mailOptions = {
+	  	from: "lucasprimo375@hotmail.com",
+	  	to: req.body.email,
+	  	subject: "Email de Recuperação de Senha - VagaCursos",
+	  	html: fs.readFileSync("front/recuperar_senha.html")
+	};
+
+	transporter.sendMail(mailOptions, function(error, info){
+	  if (!error) {
+	    res.status(200).end("");
+	  } else {
+	    res.status(404).end(JSON.stringify(error));
+	  }
+	});
 });
 
 app.listen(3000, function(){

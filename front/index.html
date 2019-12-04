@@ -34,6 +34,12 @@
 					<input class="col-md-6" type="button" value="Cadastre-se" id="cadastre_se">
 				</div>
 
+				<br>
+
+				<div class="row">
+					<input class="col-md-6" type="button" value="Recuperar Senha" id="recuperar_senha">
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -212,6 +218,32 @@
 		<img id="anexo_imagem_elemento" width="800" height="600"><br><br><br>
 		<input type="button" id="exibir_anexo_voltar" value="Voltar"><br><br><br>
 	</div>
+
+	<div id="div_recuperar_senha" class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<h1>Recuperação</h1>
+
+				<img src="imagens/logo.jpg" width="100%">
+			</div>
+
+			<div class="col-md-6">
+				<br><br>
+
+				<div class="row">
+					<input class="col-md-6" type="text" placeholder="Email" id="email_recuperar_senha">
+					<div class="w-100"></div>
+					<input class="col-md-6" type="button" id="email_recuperar_senha_botao" value="Enviar Email de Recuperação">				
+				</div>
+
+				<br>
+
+				<div class="row">
+					<input class="col-md-6" type="button" value="Voltar" id="email_recuperar_senha_voltar">
+				</div>
+			</div>
+		</div>	
+	</div>
 </body>
 </html>
 
@@ -374,6 +406,7 @@
 	document.getElementById("cadastro_curso_foto_capa").value = "";
 	document.getElementById("exibir_curso_div").style.display = "none";
 	document.getElementById("anexo_imagem_div").style.display = "none";
+	document.getElementById("div_recuperar_senha").style.display = "none";
 
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
@@ -733,5 +766,27 @@
 		document.getElementById("div_cadastrar_curso").style.display = "none";
 		document.getElementById("exibir_curso_div").style.display = "none";
 		document.getElementById("anexo_imagem_div").style.display = "none";
+	}
+
+	document.getElementById("recuperar_senha").onclick = function(){
+		document.getElementById("div_inicial").style.display = "none";
+		document.getElementById("div_recuperar_senha").style.display = "";
+		document.getElementById("email_recuperar_senha").value = "";
+	}
+
+	document.getElementById("email_recuperar_senha_voltar").onclick = function(){
+		document.getElementById("div_inicial").style.display = "";
+		document.getElementById("div_recuperar_senha").style.display = "none";
+	}
+
+	document.getElementById("email_recuperar_senha_botao").onclick = function(){
+		axios
+			.post("http://localhost:3000/recuperar_senha/", {email: document.getElementById("email_recuperar_senha").value})
+			.then(res => {
+				alert("Email enviado. Cheque a pasta de spam de o email não estiver na caixa de entrada");
+			})
+			.catch(error => {
+				alert("O endereço de email fornecido não existe ou está inacessível");
+			});
 	}
 </script>
