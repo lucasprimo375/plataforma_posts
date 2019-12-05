@@ -721,7 +721,7 @@
 
 				let autor = document.createElement("h6");
 				autor.classList.add("comentario_autor");
-				autor.innerHTML = usuario.nome + " " + usuario.sobrenome + " - " + usuario.email;
+				autor.innerHTML = usuario.nome + " " + usuario.sobrenome + " (" + usuario.email + ")";
 
 				let conteudo = document.createElement("p");
 				conteudo.innerHTML = comentario.conteudo;
@@ -731,7 +731,7 @@
 
 				document.getElementById("lista_comentarios").appendChild(item);
 
-				document.getElementById("lista_comentarios").appendChild(document.createElement("br"));
+				// document.getElementById("lista_comentarios").appendChild(document.createElement("br"));
 
 				document.getElementById("curso_comentario_corpo").value = "";
 			})
