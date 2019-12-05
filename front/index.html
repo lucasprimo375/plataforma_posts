@@ -7,12 +7,13 @@
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="icon" type="image/png" href="public/favicon.png">
 </head>
 <body>
 	<div id="div_inicial" class="container">
-		<div class="container-login">
-			<div class="jumbotron" style="width: 60%;">
+	<div class="container-login">
+		<div class="jumbotron" style="width: 60%;">
 				<div class="row" style="margin-left: 30px;">
 					<div class="col-md-6">
 						<h1>VagaCursos</h1>
@@ -27,17 +28,15 @@
 							<div class="w-100"></div>
 							<input class="col-md-10" type="password" placeholder="Senha" id="senha_login" name="senha">
 							<div class="w-100"></div>
-							<input class="col-md-10" type="button" value="Login" id="login">
-							<div class="w-100"></div>
-							<input style="visibility:hidden;">
-							<div class="w-100"></div>
-							<input style="visibility:hidden;">
+							<!--<input class="col-md-10" type="button" value="Login" id="login">-->
+							<button type="button" class="btn btn-primary" id="login" style="width: 240px;">Login</button>
 						</div>
 
-						<br>
+						<br><br>
 
 						<div class="row">
-							<input class="col-md-10" type="button" value="Cadastre-se" id="cadastre_se">
+							<!--<input class="col-md-10" type="button" value="Cadastre-se" id="cadastre_se">-->
+							<button type="button" class="btn btn-info btn-sm" id="cadastre_se" style="width: 160px; margin-left: 40px;">Cadastre-se</button>
 						</div>
 
 					</div>
@@ -47,8 +46,8 @@
 	</div>
 
 	<div id="div_cadastro" class="container">
-		<div class="container-login">
-			<div class="jumbotron" style="width: 60%;">
+	<div class="container-login">
+		<div class="jumbotron" style="width: 60%;">
 				<div class="row" style="margin-left: 30px;">
 					<div class="col-md-6">
 						<h1>Cadastro</h1>
@@ -57,8 +56,8 @@
 					</div>
 
 					<div class="col-md-6">
-						<br><br>
-						<div class="row">
+						<br>
+						<div class="row" style="margin-top: -10px;">
 								<input class="col-md-10" type="text" placeholder="Nome" id="nome" name="nome">
 								<div class="w-100"></div>
 								<input class="col-md-10" type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome">
@@ -67,13 +66,17 @@
 								<div class="w-100"></div>
 								<input class="col-md-10" type="password" placeholder="Senha" id="senha_cadastro" name="senha">
 								<div class="w-100"></div>
-								<input class="col-md-10" type="button" value="Cadastrar" id="cadastrar">					
-						</div>
+								<!--<input class="col-md-10" type="button" value="Cadastrar" id="cadastrar">-->
+								<button type="button" class="btn btn-primary" id="cadastrar" style="width: 240px;">Cadastrar</button>			
+							</div>
 
 						<br>
 
-						<div class="row">
+						<!--<div class="row">
 							<input class="col-md-10" type="button" value="Voltar" id="voltar_inicial">
+						</div>-->
+						<div class="row">
+							<button type="button" class="btn btn-info btn-sm" id="voltar_inicial" style="width: 160px; margin-left: 40px;">Voltar</button>
 						</div>
 
 					</div>
@@ -82,31 +85,36 @@
 		</div>
 	</div>
 
+	<div class="w3-container w3-teal">
 	<div id="div_principal">
-		<div class="row">
-				<div class="col-md-1">
-					<img id="imagem_logo" src="imagens/logo.jpg" height="50" width="100">
-				</div>
-				<div class="col-md-4">
-					<span id="titulo_pagina"></span>
-				</div>
-				<div class="col-md-3"></div>
-				<div class="col-md-1">
-					<span id="bem_vindo_mensagem"></span>
-				</div>
-				<div class="col-md-2">
-					<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
-				</div>
-				<div class="col-md-1">
-					<input type="button" id="botao_sair" value="Sair">
-				</div>
+			<div class="row">
+					<div class="col-md-1">
+						<img id="imagem_logo" src="imagens/logo.jpg" height="70" width="140">
+					</div>
+					<div class="col-md-4" style="margin-left: 50px;">
+						<span id="titulo_pagina"></span>
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-1" style="margin-left: 30px;">
+						<span id="bem_vindo_mensagem"></span>
+					</div>
+					<div class="col-md-2" style="margin-left: 20px;">
+						<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-dark" id="botao_sair" value="Sair" style="margin-top: 10px;">Sair</button>
+					</div>
+			</div>
 		</div>
+	</div>
 
 		<br>
 
+		<div style="margin-left: 30px;">
 		<div id="opcoes_div" class="row">
 			<div class="col-md-1">
-				<input type="button" name="categorias" value="Categorias" id="botao_categorias">
+				<button type="button" class="btn btn-primary" id="botao_categorias">Categorias</button>
+				<!--<input type="button" name="categorias" value="Categorias" id="botao_categorias">-->
 
 				<div id="categorias_modal" class="modal">
 					<div class="conteudo_modal">
@@ -122,24 +130,34 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-4">
 				<input type="text" id="buscar_curso_input" placeholder="Curso">
-				<input type="button" id="buscar_curso_botao" value="Buscar">
+				<button type="button" class="btn btn-primary" id="buscar_curso_botao">Buscar</button>
+				<!--<input type="button" id="buscar_curso_botao" value="Buscar">-->
 			</div>
 			<div class="col-md-2">
-				<input type="button" id="adicionar_curso" value="Adicionar curso">
+				<button type="button" class="btn btn-primary" id="adicionar_curso">Adicionar curso</button>
+				<!--<input type="button" id="adicionar_curso" value="Adicionar curso">-->
+				
 			</div>
 			<div class="col-md-1"></div>
 			<div class="col-md-2">
-				<input type="button" id="meus_cursos_botao" value="Meus cursos">
+				<button type="button" class="btn btn-primary" id="meus_cursos_botao">Meus cursos</button>
+				<!--<input type="button" id="meus_cursos_botao" value="Meus cursos">-->
+
 			</div>
 		</div>
 
 		<br>
 
-		<div class="container" id="div_cursos">
-			<h1 id="cursos_titulo"></h1>
-			<ul id="cursos_container"></ul>
+		<div id="cursos_destaque" style="margin-left: -30px;">
+			<div class="w3-container">
+				<div class="w3-panel w3-blue w3-round-xlarge">
+					<div class="container" id="div_cursos" style="text-align: center;">
+						<h1 id="cursos_titulo"></h1>
+						<ul id="cursos_container"></ul>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
 
 	<div id="editar_perfil_div" class="row">
 		<div class="container">
@@ -159,16 +177,19 @@
 			<span class="bold">Senha</span><br>
 			<input class="col-md-2" type="password" id="editar_perfil_senha">
 			<div class="w-100"><br></div>
-			<input class="col-md-2" type="button" id="salvar_perfil_botao" value="Salvar">
+			<!--<input class="col-md-2" type="button" id="salvar_perfil_botao" value="Salvar">-->
+			<button type="button" class="btn btn-primary btn-sm" id="salvar_perfil_botao" style="width: 180px;">Salvar</button>
 			<span id="editar_perfil_status"></span><br>
 			<div class="w-100"><br></div>
-			<input class="col-md-2" type="button" id="salvar_perfil_voltar" value="Voltar">
+			<!--<input class="col-md-2" type="button" id="salvar_perfil_voltar" value="Voltar">-->
+			<button type="button" class="btn btn-info btn-sm" id="salvar_perfil_voltar" style="width: 180px;">Voltar</button>
 		</div>
 	</div>
 
 	<div id="div_cadastrar_curso" class="container">
+		<div class="jumbotron">
 			<h1>Título</h1>
-			<input class="cadastro_curso_input" type="text" id="cadastro_curso_titulo"><br><br><br>
+			<input class="col-md-4" type="text" id="cadastro_curso_titulo"><br><br><br>
 			
 			<h1>Foto de Capa</h1>
 			<h6>Resolução recomendada 600x300</h6>
@@ -185,17 +206,20 @@
 
 			<h1>Categoria</h1>
 			<select id="cadastrar_curso_categoria">
-			</select><br><br><br>
+			</select><br><br><br><hr>
 
 			<div class="row">
-				<input class="col-md-2" type="button" id="publicar_curso_botao" value="Publicar">
+				<!--<input class="col-md-2" type="button" id="publicar_curso_botao" value="Publicar">-->
+				<button type="button" class="btn btn-primary" id="publicar_curso_botao" style="width: 150px;">Publicar</button>
 				<div class="col-md-1"></div>
 				<div class="col-md-1">
 					<span id="publicar_curso_erro" class="erro"></span>
 				</div>
-				<input class="col-md-2" type="button" id="publicar_curso_voltar" value="Voltar">
+				<button type="button" class="btn btn-info" id="publicar_curso_voltar" style="width: 150px;">Voltar</button>
+				<!--<input class="col-md-2" type="button" id="publicar_curso_voltar" value="Voltar">-->
 				<div class="col-md-4"></div>
-			</div><br><br><br>
+			</div><br>
+			</div>
 	</div>
 
 	<div id="exibir_curso_div" class="container">
@@ -217,8 +241,6 @@
 		<textarea id="curso_comentario_corpo" rows="5" cols="40"></textarea><br>
 		<input type="button" id="publicar_comentario_botao" value="Publicar Comentário"><br><br><br>
 		
-		<input type="button" id="exibir_curso_excluir_botao" value="Excluir"><br><br><br>
-
 		<input type="button" id="exibir_curso_voltar" value="Voltar"><br><br><br>
 	</div>
 
@@ -309,12 +331,6 @@
 
 			document.getElementById("lista_comentarios").appendChild(document.createElement("br"));
 		}
-
-		document.getElementById("exibir_curso_excluir_botao").style.display = "none";
-
-		if(dados.autor_email == usuario.email){
-			document.getElementById("exibir_curso_excluir_botao").style.display = "";			
-		}
 	}
 
 	function limpar_cursos_div(){
@@ -388,6 +404,8 @@
 	document.getElementById("email_login").value = "";
 	document.getElementById("senha_login").value = "";
 	document.getElementById("div_principal").style.display = "none";
+	document.getElementById("opcoes_div").style.display = "none";
+	document.getElementById("cursos_destaque").style.display = "none";
 	document.getElementById("div_inicial").style.display = "";
 	document.getElementById("div_cadastrar_curso").style.display = "none";
 	document.getElementById("cadastro_curso_anexo").value = "";
@@ -398,6 +416,8 @@
 	document.getElementById("cadastre_se").onclick = function(){
 		document.getElementById("div_inicial").style.display = "none";
 		document.getElementById("div_principal").style.display = "none";
+		document.getElementById("opcoes_div").style.display = "none";
+		document.getElementById("cursos_destaque").style.display = "none";
 		document.getElementById("div_cadastro").style.display = "";
 
 		document.getElementById("email_login").value = "";
@@ -426,6 +446,8 @@
 				document.getElementById("div_inicial").style.display = "none";
 				document.getElementById("div_cadastro").style.display = "none";
 				document.getElementById("div_principal").style.display = "";
+				document.getElementById("opcoes_div").style.display = "";
+				document.getElementById("cursos_destaque").style.display = "";
 				document.getElementById("cursos_titulo").innerHTML = "Cursos em Destaque";
 
 				buscar_cursos_em_destaque();
@@ -749,21 +771,19 @@
 		document.getElementById("div_inicial").style.display = "";
 		document.getElementById("div_cadastro").style.display = "none";
 		document.getElementById("div_principal").style.display = "none";
+		document.getElementById("opcoes_div").style.display = "none";
+		document.getElementById("cursos_destaque").style.display = "none";
 		document.getElementById("editar_perfil_div").style.display = "none";
 		document.getElementById("div_cadastrar_curso").style.display = "none";
 		document.getElementById("exibir_curso_div").style.display = "none";
 		document.getElementById("anexo_imagem_div").style.display = "none";
 	}
 
-	document.getElementById("exibir_curso_excluir_botao").onclick = function(){
-		axios
-			.post("http://localhost:3000/deletar_curso/", {curso: document.getElementById("curso_titulo").innerHTML})
-			.then(res => {
-				alert("Curso excluído com sucesso");
-				document.getElementById("exibir_curso_voltar").onclick();
-			})
-			.catch(error => {
-				alert(error.response ? error.response.data : error);
-			});
+	function w3_open() {
+	document.getElementById("mySidebar").style.display = "block";
+	}
+
+	function w3_close() {
+	document.getElementById("mySidebar").style.display = "none";
 	}
 </script>
