@@ -1,11 +1,3 @@
-#publicar_curso_botao,
-#publicar_curso_voltar,
-#exibir_curso_voltar,
-#exibir_anexo_voltar,
-#exibir_curso_excluir_botao {
-  font-size: 2em;
-}
-
 .cadastro_curso_input {
   border-top-width: 0px;
   border-left-width: 0px;
@@ -91,10 +83,13 @@
   list-style: none;
 }
 
+.curso_box {
+	width: 250px;
+	height: 200px;
+}
+
 .comentario_autor {
-  border-bottom-style: solid;
-  border-bottom-color: gray;
-  border-bottom-width: 1px;
+  color: gray;
 }
 
 .comentario {
@@ -116,3 +111,168 @@
   align-items: center;
   padding: 15px; 
 }
+
+#info-login {
+	margin-top: 60px;
+}
+
+#info-login input{
+	margin: 3px 0;
+}
+
+#info-login button{
+	margin: 9px 0 3px 0;
+}
+
+#info-cadastro {
+	margin-top: 25px;
+}
+
+#info-cadastro input{
+	margin: 3px 0;
+}
+
+#info-cadastro button{
+	margin: 9px 0 3px 0;
+}
+
+
+#info-perfil input{
+	margin: 3px auto 25px;
+}
+#info-perfil button{
+	display: block;
+	margin: 0 auto;
+}
+#info-perfil button#salvar_perfil_botao {
+	font-size: medium;
+	margin-bottom: -15px;
+}
+#info-perfil span{
+	display: block;
+	margin: 0 auto;
+	padding: 0;
+}
+#info-perfil #file{
+	padding: 0;
+}
+
+/* HEADER */
+#titulo_pagina {
+	position: absolute;
+	color: white;
+	top: 20%;
+}
+#imagem_logo {
+    position: absolute;
+    top: 25%;
+    height: auto;
+    max-width: 80px;
+}
+#imagem_perfil {
+	border-radius: 50%;
+	padding: 5px 0;
+	max-width: 60px;
+	height: auto;
+}
+#botao_sair {
+	margin: 10px;
+	float: right;
+}
+#bem_vindo_mensagem {
+	top: 40%;
+}
+.user-info {
+	float: right;
+}
+/* FIM HEADER */
+
+
+#buscar_curso_input {
+	width: 75%;
+	float: left;
+}
+
+#buscar_curso_botao {
+	float: right;
+}
+
+
+#div_cadastrar_curso button {
+	display: block;
+	margin: 0 auto;
+}
+#div_cadastrar_curso button#publicar_curso_botao {
+	font-size: large;
+	margin-bottom: -15px;
+}
+#div_cadastrar_curso button#publicar_curso_voltar {
+	font-size: medium;
+}
+
+#div_cadastrar_curso .jumbotron {
+	padding: 30px;
+}
+
+
+
+/* POST */
+#exibir_curso_div {
+	max-width: 800px;
+	margin-top: -30px;
+	margin-bottom: 100px;
+}
+#exibir_curso_div #curso_capa {
+	display: block;
+	margin: 10px auto 10px auto;
+	max-width: 800px;
+	max-height: 400px;
+	height: auto;
+}
+#exibir_curso_div #curso_escrito_por{
+	float: left;
+	color: gray;
+}
+#exibir_curso_div #curso-texto-categoria{
+	float: right;
+	color: gray;
+}
+#exibir_curso_div #curso_corpo{
+	margin: 70px 0 70px 0;
+	clear: both;
+	font-size: large;
+	text-align: justify;
+}
+#exibir_curso_div #curso_corpo::first-letter {
+	font-size: xxx-large;
+	font-weight: bold;
+}
+#exibir_curso_div #publicar_comentario_botao {
+	display: block;
+	margin: 10px auto 60px auto;
+}
+#exibir_curso_div #exibir_curso_voltar {
+	float: left;
+}
+#exibir_curso_div #exibir_curso_excluir_botao {
+	float: right;
+}
+/* FIM POST */
+
+/* ANEXO */
+#anexo_imagem_div {
+	max-width: 800px;
+	margin-top: -30px;
+	margin-bottom: 100px;
+}
+#anexo_imagem_div #anexo_imagem_elemento {
+	display: block;
+	margin: 10px auto 60px auto;
+	max-width: 800px;
+	max-height: 400px;
+	height: auto;
+}
+#anexo_imagem_div #exibir_anexo_voltar {
+	float: left;
+}
+/* FIM ANEXO */

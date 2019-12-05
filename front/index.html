@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>VagaCursos</title>
+	<title>Cursos 4Free</title>
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
@@ -12,33 +12,22 @@
 </head>
 <body>
 	<div id="div_inicial" class="container">
-	<div class="container-login">
-		<div class="jumbotron" style="width: 60%;">
+		<div class="container-login">
+			<div class="jumbotron" style="width: 60%;">
 				<div class="row" style="margin-left: 30px;">
 					<div class="col-md-6">
-						<h1>VagaCursos</h1>
-
-						<img src="imagens/logo.jpg" width="100%">
+						<h1>Cursos 4Free</h1>
+						<img src="imagens/logo.jpg" width="100%" style="border-radius: 2%;">
 					</div>
 
-					<div class="col-md-6">
-						<br><br>
+					<div class="col-md-6" id="info-login">
 						<div class="row">
-							<input class="col-md-10" type="text" placeholder="Email" id="email_login" name="email">
-							<div class="w-100"></div>
-							<input class="col-md-10" type="password" placeholder="Senha" id="senha_login" name="senha">
-							<div class="w-100"></div>
-							<!--<input class="col-md-10" type="button" value="Login" id="login">-->
+							<input class="col-md-10 form-control" type="text" placeholder="Login" id="email_login" name="email">
+							<input class="col-md-10 form-control" type="password" placeholder="Senha" id="senha_login" name="senha">
+							
 							<button type="button" class="btn btn-primary" id="login" style="width: 240px;">Login</button>
-						</div>
-
-						<br><br>
-
-						<div class="row">
-							<!--<input class="col-md-10" type="button" value="Cadastre-se" id="cadastre_se">-->
 							<button type="button" class="btn btn-info btn-sm" id="cadastre_se" style="width: 160px; margin-left: 40px;">Cadastre-se</button>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -51,34 +40,19 @@
 				<div class="row" style="margin-left: 30px;">
 					<div class="col-md-6">
 						<h1>Cadastro</h1>
-
-						<img src="imagens/logo.jpg" width="100%">
+						<img src="imagens/logo.jpg" width="100%" style="border-radius: 2%;">
 					</div>
 
-					<div class="col-md-6">
-						<br>
+					<div class="col-md-6" id="info-cadastro">
 						<div class="row" style="margin-top: -10px;">
-								<input class="col-md-10" type="text" placeholder="Nome" id="nome" name="nome">
-								<div class="w-100"></div>
-								<input class="col-md-10" type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome">
-								<div class="w-100"></div>
-								<input class="col-md-10" type="text" placeholder="Email" id="email_cadastro" name="email">
-								<div class="w-100"></div>
-								<input class="col-md-10" type="password" placeholder="Senha" id="senha_cadastro" name="senha">
-								<div class="w-100"></div>
-								<!--<input class="col-md-10" type="button" value="Cadastrar" id="cadastrar">-->
-								<button type="button" class="btn btn-primary" id="cadastrar" style="width: 240px;">Cadastrar</button>			
-							</div>
-
-						<br>
-
-						<!--<div class="row">
-							<input class="col-md-10" type="button" value="Voltar" id="voltar_inicial">
-						</div>-->
-						<div class="row">
+							<input class="col-md-10 form-control" type="text" placeholder="Nome" id="nome" name="nome">
+							<input class="col-md-10 form-control" type="text" placeholder="Sobrenome" id="sobrenome" name="sobrenome">
+							<input class="col-md-10 form-control" type="text" placeholder="Login" id="email_cadastro" name="email">
+							<input class="col-md-10 form-control" type="password" placeholder="Senha" id="senha_cadastro" name="senha">
+							
+							<button type="button" class="btn btn-primary" id="cadastrar" style="width: 240px;">Cadastrar</button>			
 							<button type="button" class="btn btn-info btn-sm" id="voltar_inicial" style="width: 160px; margin-left: 40px;">Voltar</button>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -86,23 +60,24 @@
 	</div>
 
 	<div class="w3-container w3-teal">
-	<div id="div_principal">
+		<div id="div_principal">
 			<div class="row">
 					<div class="col-md-1">
-						<img id="imagem_logo" src="imagens/logo.jpg" height="70" width="140">
+						<img id="imagem_logo" src="imagens/logo.svg">
 					</div>
 					<div class="col-md-4" style="margin-left: 50px;">
 						<span id="titulo_pagina"></span>
 					</div>
 					<div class="col-md-2"></div>
-					<div class="col-md-1" style="margin-left: 30px;">
-						<span id="bem_vindo_mensagem"></span>
-					</div>
+					<div class="col-md-1" style="margin-left: 30px;"></div>
 					<div class="col-md-2" style="margin-left: 20px;">
-						<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
+						<div class="user-info">
+							<span id="bem_vindo_mensagem"></span>
+							<img id="imagem_perfil" class="col-md-6" src="imagens/default-avatar.jpg">
+						</div>
 					</div>
 					<div class="col-md-1">
-						<button type="button" class="btn btn-dark" id="botao_sair" value="Sair" style="margin-top: 10px;">Sair</button>
+						<button type="button" class="btn btn-dark" id="botao_sair" value="Sair" >Sair</button>
 					</div>
 			</div>
 		</div>
@@ -112,9 +87,8 @@
 
 		<div style="margin-left: 30px;">
 		<div id="opcoes_div" class="row">
-			<div class="col-md-1">
+			<div class="col-md-3">
 				<button type="button" class="btn btn-primary" id="botao_categorias">Categorias</button>
-				<!--<input type="button" name="categorias" value="Categorias" id="botao_categorias">-->
 
 				<div id="categorias_modal" class="modal">
 					<div class="conteudo_modal">
@@ -124,25 +98,17 @@
 						</ul>
 					</div>
 				</div>
-
 			</div>
-			<div class="col-md-1"></div>
-			<div class="col-md-1"></div>
-			<div class="col-md-4">
-				<input type="text" id="buscar_curso_input" placeholder="Curso">
+
+			<div class="col-md-3">
+				<input class="form-control" type="text" id="buscar_curso_input" placeholder="Buscar curso...">
 				<button type="button" class="btn btn-primary" id="buscar_curso_botao">Buscar</button>
-				<!--<input type="button" id="buscar_curso_botao" value="Buscar">-->
 			</div>
-			<div class="col-md-2">
-				<button type="button" class="btn btn-primary" id="adicionar_curso">Adicionar curso</button>
-				<!--<input type="button" id="adicionar_curso" value="Adicionar curso">-->
-				
+			<div class="col-md-3">
+				<button type="button" class="btn btn-primary" id="adicionar_curso">+ Adicionar curso</button>
 			</div>
-			<div class="col-md-1"></div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<button type="button" class="btn btn-primary" id="meus_cursos_botao">Meus cursos</button>
-				<!--<input type="button" id="meus_cursos_botao" value="Meus cursos">-->
-
 			</div>
 		</div>
 
@@ -160,76 +126,61 @@
 		</div>
 
 	<div id="editar_perfil_div" class="row">
-		<div class="container">
-			<span class="bold">Edite apenas os campos que você deseja mudar</span><br><br>
-			<span class="bold">Foto</span><br>
-			<input class="col-md-6" type="file" id="file">
-			<div class="w-100"><br></div>
-			<span class="bold">Nome</span><br>
-			<input class="col-md-2" type="text" id="editar_perfil_nome">
-			<div class="w-100"><br></div>
-			<span class="bold">Sobrenome</span><br>
-			<input class="col-md-2" type="text" id="editar_perfil_sobrenome">
-			<div class="w-100"><br></div>
-			<span class="bold">Email</span><br>
-			<input class="col-md-2" type="text" id="editar_perfil_email" readonly>
-			<div class="w-100"><br></div>
-			<span class="bold">Senha</span><br>
-			<input class="col-md-2" type="password" id="editar_perfil_senha">
-			<div class="w-100"><br></div>
-			<!--<input class="col-md-2" type="button" id="salvar_perfil_botao" value="Salvar">-->
-			<button type="button" class="btn btn-primary btn-sm" id="salvar_perfil_botao" style="width: 180px;">Salvar</button>
+		<div class="container" id="info-perfil">
+			<h3>Edite apenas os campos que você deseja mudar</h3><br>
+			
+			<span class="col-md-4 bold">Foto</span>
+			<input class="col-md-4 form-control-file" type="file" id="file">
+			<span class="col-md-4 bold">Nome</span>
+			<input class="col-md-4 form-control" type="text" id="editar_perfil_nome">
+			<span class="col-md-4 bold">Sobrenome</span>
+			<input class="col-md-4 form-control" type="text" id="editar_perfil_sobrenome">
+			<span class="col-md-4 bold">Login</span>
+			<input class="col-md-4 form-control" type="text" id="editar_perfil_email" readonly>
+			<span class="col-md-4 bold">Senha</span>
+			<input class="col-md-4 form-control" type="password" id="editar_perfil_senha">
+			
+			<button type="button" class="btn btn-primary btn-sm" id="salvar_perfil_botao" style="width: 240px;">Salvar</button>
 			<span id="editar_perfil_status"></span><br>
-			<div class="w-100"><br></div>
-			<!--<input class="col-md-2" type="button" id="salvar_perfil_voltar" value="Voltar">-->
-			<button type="button" class="btn btn-info btn-sm" id="salvar_perfil_voltar" style="width: 180px;">Voltar</button>
+			<button type="button" class="btn btn-info btn-sm" id="salvar_perfil_voltar" style="width: 160px;">Voltar</button>
 		</div>
 	</div>
 
 	<div id="div_cadastrar_curso" class="container">
 		<div class="jumbotron">
-			<h1>Título</h1>
-			<input class="col-md-4" type="text" id="cadastro_curso_titulo"><br><br><br>
+			<h3>Título</h3>
+			<input class="col-md-4 form-control" type="text" id="cadastro_curso_titulo"><br><br>
 			
-			<h1>Foto de Capa</h1>
-			<h6>Resolução recomendada 600x300</h6>
-			<input type="file" id="cadastro_curso_foto_capa"><br><br><br>
+			<h3>Foto de Capa</h3>
+			<input class="form-control-file" type="file" id="cadastro_curso_foto_capa"><br><br>
 
-			<h1>Corpo</h1>
-			<textarea id="cadastro_curso_corpo" rows="10" cols="80"></textarea><br><br><br>
+			<h3>Corpo</h3>
+			<textarea class="form-control" id="cadastro_curso_corpo" rows="10" cols="80"></textarea><br><br>
 
-			<h1>Anexos</h1>
+			<h3>Anexos</h3>
 			<h6>Resolução recomendada 800x600</h6>
 			<div id="div_anexos">
-				<input type="file" id="cadastro_curso_anexo" multiple>
-			</div><br><br><br>
+				<input type="file" id="cadastro_curso_anexo" class="form-control-file" multiple>
+			</div><br><br>
 
-			<h1>Categoria</h1>
-			<select id="cadastrar_curso_categoria">
-			</select><br><br><br><hr>
+			<h3>Categoria</h3>
+			<select id="cadastrar_curso_categoria" class="form-control">
+			</select><br><hr>
 
-			<div class="row">
-				<!--<input class="col-md-2" type="button" id="publicar_curso_botao" value="Publicar">-->
-				<button type="button" class="btn btn-primary" id="publicar_curso_botao" style="width: 150px;">Publicar</button>
-				<div class="col-md-1"></div>
-				<div class="col-md-1">
-					<span id="publicar_curso_erro" class="erro"></span>
-				</div>
-				<button type="button" class="btn btn-info" id="publicar_curso_voltar" style="width: 150px;">Voltar</button>
-				<!--<input class="col-md-2" type="button" id="publicar_curso_voltar" value="Voltar">-->
-				<div class="col-md-4"></div>
-			</div><br>
-			</div>
+			<button type="button" class="btn btn-primary" id="publicar_curso_botao" style="width: 240px;">Publicar</button>
+			<span id="publicar_curso_erro" class="erro"></span><br>
+			<button type="button" class="btn btn-info" id="publicar_curso_voltar" style="width: 160px;">Voltar</button>
+			
+			<br>
+		</div>
 	</div>
 
 	<div id="exibir_curso_div" class="container">
 		<h1 id="curso_titulo"></h1>
+		<img src="" id="curso_capa">
 		
-		<img src="" id="curso_capa" width="600" height="300">
-		
-		<h6 id="curso_categoria"></h6>
-		
-		<h4 id="curso_autor"></h4>
+		<span id="curso_escrito_por">Escrito por <strong id="curso_autor"></strong></span>
+		<span id="curso-texto-categoria">Categoria: <strong id="curso_categoria"></strong></span>
 		
 		<p id="curso_corpo"></p>
 		
@@ -238,17 +189,16 @@
 
 		<h4 id="">Comentários</h4>
 		<ul id="lista_comentarios"></ul>
-		<textarea id="curso_comentario_corpo" rows="5" cols="40"></textarea><br>
-		<input type="button" id="publicar_comentario_botao" value="Publicar Comentário"><br><br><br>
+		<textarea class="form-control" id="curso_comentario_corpo" rows="5" cols="40" placeholder="Deixe seu comentário..."></textarea>
+		<input class="btn btn-secondary" type="button" id="publicar_comentario_botao" value="Publicar Comentário">
 
-		<input type="button" id="exibir_curso_excluir_botao" value="Excluir"><br><br><br>
-		
-		<input type="button" id="exibir_curso_voltar" value="Voltar"><br><br><br>
+		<input type="button" class="btn btn-info" id="exibir_curso_voltar" value="Voltar">
+		<input type="button" class="btn btn-danger" id="exibir_curso_excluir_botao" value="Excluir Curso">
 	</div>
 
 	<div id="anexo_imagem_div" class="container">
-		<img id="anexo_imagem_elemento" width="800" height="600"><br><br><br>
-		<input type="button" id="exibir_anexo_voltar" value="Voltar"><br><br><br>
+		<img id="anexo_imagem_elemento">
+		<input type="button" class="btn btn-info" id="exibir_anexo_voltar" value="Voltar">
 	</div>
 </body>
 </html>
@@ -279,7 +229,7 @@
 		document.getElementById("lista_comentarios").innerHTML = "";
 
 		document.getElementById("curso_titulo").innerHTML = dados.titulo;
-		document.getElementById("curso_autor").innerHTML = "Escrito por " + dados.autor;
+		document.getElementById("curso_autor").innerHTML = dados.autor;
 		document.getElementById("curso_categoria").innerHTML = dados.categoria;
 		
 		if(dados.capa != undefined)
@@ -296,6 +246,11 @@
 		for(let i = 0; i < dados.anexos.length; i++){
 			let anexo = document.createElement("img");
 			anexo.src = dados.anexos[i];
+			anexo.classList.add("shadow-sm");
+			anexo.classList.add("p-3");
+			anexo.classList.add("mb-5");
+			anexo.classList.add("bg-white");
+			anexo.classList.add("rounded");
 			anexo.width = 100;
 			anexo.height = 100;
 			anexo.style.marginRight = "10px";
@@ -317,11 +272,15 @@
 
 		for(let i = 0; i < dados.comentarios.length; i++){
 			let item = document.createElement("li");
-			item.classList.add("comentario");
+			item.classList.add("shadow");
+			item.classList.add("p-3");
+			item.classList.add("mb-5");
+			item.classList.add("bg-white");
+			item.classList.add("rounded");
 
 			let autor = document.createElement("h6");
 			autor.classList.add("comentario_autor");
-			autor.innerHTML = dados.comentarios[i].nome + " " + dados.comentarios[i].sobrenome + " - " + dados.comentarios[i].email;
+			autor.innerHTML = dados.comentarios[i].nome + " " + dados.comentarios[i].sobrenome + " (" + dados.comentarios[i].email + ")";
 
 			let conteudo = document.createElement("p");
 			conteudo.innerHTML = dados.comentarios[i].conteudo;
@@ -331,7 +290,7 @@
 
 			document.getElementById("lista_comentarios").appendChild(item);
 
-			document.getElementById("lista_comentarios").appendChild(document.createElement("br"));
+			// document.getElementById("lista_comentarios").appendChild(document.createElement("br"));
 		}
 
 		document.getElementById("exibir_curso_excluir_botao").style.display = "none";
@@ -364,8 +323,7 @@
 			titulo.innerHTML = cursos[i].titulo;
 
 			let item = document.createElement("li");
-			item.style.marginRight = "30px";
-			item.style.marginBottom = "30px";
+			item.classList.add("curso_box");
 			item.style.display = "inline-block";
 			
 			item.appendChild(titulo);
