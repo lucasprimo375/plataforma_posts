@@ -1,6 +1,9 @@
-O mysql tem que ter um usuário com nome e senha "admin".
+O mysql dever estar instalado e ter um usuário com nome e senha "admin".
 
-O nome do banco de dados mysql é vaga_cursos.
+O nome do banco de dados mysql é vaga_cursos, e o usuário admin
+deve ter todos os direitos sobre ele e suas tabelas.
+
+A seguir as tabelas do banco.
 
 Criando a tabela de usuários:
 CREATE TABLE usuario (
@@ -37,3 +40,7 @@ CREATE TABLE comentarios (
 	FOREIGN KEY (curso) REFERENCES cursos(titulo),
 	FOREIGN KEY (autor) REFERENCES usuario(email)
 ) AUTO_INCREMENT = 0;
+
+Para executar o servidor, roda na linha de comandos "node index.js".
+
+Para entrar no site, entre na pasta front e abra o arquivo index.html no seu navegador.
