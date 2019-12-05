@@ -483,6 +483,7 @@
 					item.onclick = function(){
 						document.getElementById("categorias_modal").style.display = "none";
 						document.getElementById("cursos_titulo").innerHTML = "Cursos de " + this.id + " em Destaque";
+						document.getElementById("exibir_curso_div").style.display = "none";
 						buscar_cursos_em_destaque(this.id);
 					}
 				}
