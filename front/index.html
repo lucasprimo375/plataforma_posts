@@ -680,6 +680,7 @@
         axios
         	.post("http://localhost:3000/cadastrar_curso/", fd, config)
         	.then(res => {
+        		res.data.comentarios = [];
         		exibir_curso(res.data);
         	})
         	.catch(error => {
@@ -801,6 +802,7 @@
 			.post("http://localhost:3000/deletar_curso/", {curso: document.getElementById("curso_titulo").innerHTML})
 			.then(res => {
 				alert("Curso excluído com sucesso");
+				document.getElementById("imagem_logo").onclick();
 				document.getElementById("exibir_curso_voltar").onclick();
 			})
 			.catch(error => {
